@@ -1,0 +1,906 @@
+﻿======================================[0726]======================================
+
+교과목
+* 데이터 입출력 구현
+   - 데이터베이스/고급자바 -> mybatis
+   - JSP/Servlet: 게시판 과제
+
+* 서버 프로그램 구현
+   - Spring framework: 게시판 과제
+   - Spring batch: 배치 과제
+
+* 애플리케이션 배포
+   - virtual box, raspberry를 이용한 서버 구축/배포: 배포 스크립트 작성 과제
+
+* 애플리케이션 테스트 수행
+   - 교과 내용 진행시 테스트 병행: 게시판 과제시 병행
+
+* 애플리케이션 통합 --> 4가지 이후
+   - 애플리케이션 테스트
+   - Spring boot
+   - 최종프로젝트 설계
+
+* 같은 기능을 다른 환경으로
+   - spring -> spring Boot -> node.js
+   - maria db -> firebase
+   - jsp -> thymeleaf -> pug
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[서버환경]
+* 화면 / 비지니스 로직 / 데이터베이스 <-- 3가지
+
+* Client / Server Architecture(1-tier)
+   - 한 시스템에 모두 있는 환경
+   - 확장 어려움
+
+* Client / Server Architecture(2-tier)
+   - 전용 Client 프로그램 - 속도가 빠르다(병원 진료, 차트 프로그램)
+   - DB만 공유하고 UI, business 로직은 Client 프로그램에 탑재
+   - 클라이언트간 통신이 힘듬 / 보안문제
+
+* Client / Server Architecture(3-tier)
+   - 전용 Client 프로그램 - 속도가 빠르다(온라인 게임)
+   - 로직이 서버에 있음
+   - 클라이언트가 요청 시 서버에서 로직을 전송
+   - 클라이언트프로그램의 배포가 문제
+
+* Web Architecture
+   - 브라우저 기능에 의존, 제한적인 UI(Flex, flash)
+   - 브라우저 기능을 벗어나는 추가기능 사용시 호환성 / 보안문제(Active x)
+   - 모든 브라우저가 동일한 기능을 제공하지 않음(브라우저별 호환문제)
+   - 같은 브라우저의 버전별 호환 문제
+   - Web Server(클라이언트의 요청으로 결과를 전송, 아파치서버)
+     정적 자원 처리에 최적화(html, css, js, image)
+   - Web Application Server(톰캣)
+     동적 컨텐츠를 생성하여 Web Server에 전달
+
+* 사용하게 될 애플리케이션: sping JUnit git maven(라이브러리가져오기)
+
+[형상관리]
+   - 프로젝트나 제품의 전체 수명주기에 걸쳐 시스템이나 소프트웨어의 변경을
+     추적하고 상태를 유지
+   - 시스템이 개발 완료된 이후, 유지보수되는 동안 계속적으로 사용
+
+   - 아파치 : Hadoop, HTTP, POI, Maven
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[Maven 설치] --> http://maven.apache.org/
+
+* 사이트 접속 후 Download -> Binary zip archive다운로드(apache-maven-3.6.1-bin.zip)
+
+* 압축풀기 후 폴더이름 'maven'으로 바꿔주기
+
+* 학원컴 경로: E:\B_Util\6.maven\maven
+
+* 해당 폴더의 bin폴더에서 cmd를 키고 'mvn -version' --> 버전이 나옴
+
+* 다른 폴더에선 'mvn -version'이 안되므로 환경변수 설정을 해준다.
+
+* 환경변수 새로설정
+   - 이름: M2_HOME
+   - 경로: E:\B_Util\6.maven\maven
+
+* 환경변수의 Path에서 새로 만들기
+   - %M2_HOME%\bin
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[이클립스 환경설정]
+
+ㅁ 경로: E:\A_TeachingMaterial\7.JspSpring\workspace
+
+ㅁ 환경설정 - Java - Code Style - Code templete - comments: types
+/**
+* ${file_name}
+*
+* @author ${user}
+* @version 1.0
+* @see
+*
+* <pre>
+* << 개정이력(Modification Information) >>
+*
+* 수정자 수정내용
+* ------ ------------------------
+* ${user} 최초 생성
+*
+* </pre>
+*/
+
+ㅁ 환경설정 - Java - Code Style - Code templete - comments: methods / Overridng methods
+/**
+* Method : ${enclosing_method}
+* 작성자 : ${user}
+* 변경이력 :
+* ${tags}
+* Method 설명 :
+*/
+
+ㅁ test comments --> 환경설정 - Java - Editor - Templates - New
+name: gwt
+Pattern: 
+/***Given***/
+${cursor}
+
+/***When***/
+
+
+/***Then***/
+
+ㅁutf-8 설정
+   - encoding검색해서 utf-8로 설정
+
+ㅁ 자주 사용 할 Perspective: JavaEE, debug
+   - Perspective간 이동하는 단축키 Ctrl + F8 --> F8 or Shift + F8
+
+ㅁ view 이동: Ctrl + F7
+   - Editor로 바로 이동: F12
+
+
+ㅁ Getter/Setter 단축키
+   - 윈도우 - 프리퍼런스 - keys - type filter text에 getter 검색 -
+     Generate Getters and Setters(methods) 선택 -> Binding을 Ctrl + Alt + S로 설정
+   - 혹은, 우측상단 Quick Access(Ctrl + 3) -> Getters 검색 / toString 검색
+
+ㅁ 디버깅
+   - 브레이크포인트: 줄넘버에 더블클릭
+   - Variables: 변수들
+      > 빨간네모: private를 의미
+   - Expressions 자주 사용함, --> 코드를 실행할 수 있는 공간
+   - Resume(F8): 다음 브레이크 포인트까지 이동
+   - Step Into(F5): 메소드 호출이 있을 때 안으로 들어감
+   - Step Return(F7): 메소드 안에서 바로 나가기
+   - Step Over(F6): 메소드를 실행하지 않고 다음으로 넘어감
+   - Ctrl + F2: 프로그램(디버그) 종료
+
+ㅁ 단축키
+   - Alt + Shift + J: 주석
+   - Ctrl + M: view 화면 최대화 <-> 최소화
+   - Ctrl + F8: Perspective 이동 --> 창이 뜬 뒤 F8은 밑으로, Shift + F8은 위로
+   - Ctrl + F7: view 이동 --> 창이 뜬 뒤 F8은 밑으로, Shift + F8은 위로
+   - F12: editor view로 이동
+   - F3: 레퍼런스 참조
+   - F4: 계층구조
+   - Alt + Left(Right) -> 이전(뒤) view로 이동
+   - Ctrl + PageUp(PageDown) -> view 왼쪽(오른쪽)
+   - Alt + Shift + R: 이름 변경(관련된 것 모두 변경) --> 변수명은 일일히 해줘야
+   - Alt + Shift + A: 세로 편집 --> Shift로 영역 설정
+   - Ctrl + 3: Quick Access
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[이론]
+
+ㅁ WAS(웹 어플리케이션 서버 방식)
+   - servlet/jsp는 thread방식으로 실행 -> 동시처리 성능이 우수
+   - servlet/jsp는 main함수를 통해 실행하지 않는다.
+
+
+
+
+
+======================================[0729]======================================
+
+[Git을 통해 프로젝트 Import]
+
+ㅁ git 설치(https://git-scm.com/ -> 2.22.0 다운로드 -> 계속 Next로 설치)
+   -> git은 자동을 환경변수 설정을 해준다.(cmd> git --version)
+
+ㅁ 경로이동 cd e:
+   cd~cd~ --> 결과 /e/A_TeachingMaterial/7.JspSpring/workspace
+
+ㅁ 깃헙 복사
+   git clone https://github.com/jinwoolee/jsp
+
+ㅁ 지우기.. rm -rf jsp (이클립스에서 하기로 함)
+
+ㅁ import -> Projects from Git -> Clone URI -> URI: https://github.com/jinwoolee/jsp
+   -> javaServer선택 -> next -> Import as general project 선택 -> 
+   프로젝트이름 jsp
+
+ㅁ 프로젝트 우클릭 - Configure - Convert to Maven Project
+
+ㅁ 알트 F5 - OK
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ㅁ default port
+   - http: 80
+   - https: 443
+
+ㅁ servlet: 자바의 웹 개발 표준 스펙, 스펙에 따라 만들어진 소스.
+            멀티 쓰레드로 실행. 자바 코드 안에 html
+
+ㅁ Jsp: 실행 코드 방식인(java) servlet의 스크립트 방식의 표준 스텍
+        jsp는 실행시 servlet으로 변환되어 실행. html안에 자바 코드
+
+ㅁ Web Container: 표준 규약에 따라 구현된 웹 어플리케이션을 관리하고 실행할 수
+                  있는 소프트웨어(tomcat, resin, jboss 등)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[servlet]
+
+ㅁ 위자드 - Maven Project - Create a simple project 체크 후 Next -
+   Group Id: 해당 프로젝트를 진행하는 회사를 대표할 수 있는 정보
+             (주로 url 역순) ==> kr.or.ddit
+   Artifact Id: 해당 회사에서 진행하는 프로젝트 이름  ==> jsp / spring
+   Version: 프로젝트의 버전 ==> 기본값
+   Packaging: 해당 프로젝트를 패키징할 때 어떤 파일로 패키징 할지 ==> war
+              ( jar, java 아카이브, war: web 아카이브(img, html, css, jsp) )
+   * 위 4가지만 적으면 됨   
+
+   * web.xml is missing and <failOnMissingWebXml> is set to true
+     생성하고 나면 위와 같은 에러가 발생
+   * WEB-INF안에는 Classes안에 class, lib안에 lib파일, XML web.xml으로 3가지는
+     규격에 맞춰야 한다.
+   * web.xml이 존재하지 않으므로 Java EE Tools - Generate Deployment 
+
+   * jdk 설정 - jsp/pom.xml의 <packaging> 밑에 아래 내용을 써준다.
+	<build>
+	  	<plugins>
+	  		<plugin>
+	  			<!--  maven compiler plugin -->
+	  			<artifactId>maven-compiler-plugin</artifactId>
+	  			<configuration>
+	  				<source>1.8</source>
+	  				<target>1.8</target>
+	  			</configuration>
+	  		</plugin>
+	  	</plugins>
+	  </build>
+
+   * Ctrl + Shift + R: Resource찾기(web)
+     2번째 줄 맨 뒤.. web-app_3_0.xsd" version="3.0"> .. 3.0으로 바꿔줌
+
+   * webapp에 index.html을 만들어줌
+
+   * view - Servers에 new 하던지, 위자드에서 server.. - Tomcat v7.0 Server 선택
+     - host name은 변경x(localhost), server name은 변경가능(jsp server로..) - 
+     경로: E:\B_Util\5.ApacheTomcat\apache-tomcat-7.0.73 후 next - 오른쪽으로 add
+     - finish
+
+   * 윈도우 - 프리퍼런스 - runtime 검색 - Server의 Runtime Environments - add
+     - 톰캣7.0
+
+   * Servers 패키지에서 server.xml(Ctrl + Shift + r도 가능) - 65번째 줄 포트번호
+     8081로 변경
+
+   * 혹은 Server view에서 서버 더블클릭해서 ports의 HTTP/1.1을 8081로 변경
+
+   * 서버 실행(Alt + Shift + R)
+
+   * http://localhost:8081/jsp/index.html 입력하면 들어가짐.
+     or http://localhost:8081/jsp/
+ 
+   * 위 주소를 바꾸고 싶으면 jsp server의 Modules탭에 edit를 해서
+     Path를 /로 바꿔준다.
+     ==> http://localhost:8081만 쳐도 접속 가능해짐
+     ==> web.xml의 welcome-file이 순차적으로 실행되서 index.html이 실행됨
+
+   * 톰캣 설치 폴더.. E:\B_Util\5.ApacheTomcat\apache-tomcat-7.0.73
+     - conf 폴더의 server.xml과 web.xml을 복사해서 사용함
+     - lib폴더: 표준 스펙에 대한.. 구현체
+     - logs: 서버가 실행되거나 종료하거나 에러등이 발생했을 때 로그를 남기는 곳
+     - temp: 임시 영역
+     - webapps: 내부 폴더 하나 하나가 웹어플리케이션
+
+   * 위 폴더의 conf에 server.xml을 실행해서 8080검색, 값을 8081로 변경
+
+   * 서버뷰 - 서버더블클릭 - open launch configuration 클릭 - arguments탭 - 
+     VM arguments: 에 있는
+     -Dwtp.deploy="E:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\
+                   org.eclipse.wst.server.core\tmp0\wtpwebapps" 
+     ==> 이 경로로 자동으로 서버의 내용을 바꿔준다?..
+
+ㅁ 메이븐 배우는 이유.. 두 개의 jar파일이 한 jar파일을 참조하려고 하면 안되서..
+
+ㅁ maven source folder 기본 구조
+   - src/main/java : product 코드(운영코드)
+   - src/main/resources : 운영환경에서 필요한 설정파일들(java 파일이 아닌 것들)
+   - src/test/java : 개발 진행시 사용하는 테스트 코드
+                     (운영환경에서는 필요 없는 코드들)
+   - src/test/resources : 개발 진행시 사용하는 테스트 코드의 설정 파일들
+                          (운영환경에서는 필요 없는 설정 파일들)
+
+ㅁ servlet
+   - src/main/java에 kr.or.ddit.servlet패키지 생성
+   - HelloServlet클래스 생성
+     * J2EE 기반의 웹 어플리케이션 개발 시 main method를 통해 실행하지 않는다.
+     * 우리가 작성한 웹 어플리케이션(war)을 was(tomcat)의 webapps 폴더 밑에
+       이동을 시켜주면 서버가 기동할 때 해당 어플리케이션을 자동으로 로딩한다.
+     * 웹 어플리케이션의 폴더명이 context path가 된다.
+     *** 서버 설정에 의해서 폴더명과 다른 context path를 부여하는게 가능
+         (하지만 우리는 서버 엔지니어가 아니기 때문에 해당 부분까지는 가지 않는다.)
+     * 특정 url을 호출하면, url을 처리해줄 수 있는 servlet을 호출하여 응답을 생성한다.
+     * servlet 생성방법
+        1. class를 생성
+        2. HttpServlet 클래스를 상속을 한다(J2EE spec을 따른다)
+	3. doGet, doPost 메소드를 오버라이딩 한다.
+        4. 어떤 url을 해당 서블릿에서 처리할 지 매핑
+           (web.xml, servlet 3.0이후부터 servlet class 어노테이션으로 설정)
+
+        ==> 2.를 하려면 servlet.jar가 필요한데 tomcat폴더에 있다..
+            이 파일을 고급자바시간때처럼 build path하지 않음(이클립스를 벗어나면 이용 못하므로)
+        ==> pom.xml에서 설정하면 된다. 위에서 build를 적었던 곳 바로 밑에 아래 내용 작성
+	
+	<!-- 프로젝트에서 사용하는 의존성 관리(라이브러리) -->
+	<!-- https://mvnrepository.com/ 에서 주로 사용 -->
+	<dependencies>
+  		<!-- servlet api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>   
+
+	==> 3. 알트쉬프트S Override/Implement Methods클릭, doGet오버라이드
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		 resp.setContentType("text/html");
+		 
+		 PrintWriter pw = resp.getWriter();
+		 pw.write("<html>");
+		 pw.write("	<head>");
+		 pw.write("		<title>helloServlet</title>");
+		 pw.write("	</head>");
+		 pw.write("	<body>");
+		 pw.write("		<h1>hello, world</h1>");
+		 pw.write("	</body>");
+		 pw.write("</html>");
+	}
+
+	==> 4. web.xml에 (src/main/webapp/WEB-INF) 매핑
+	  <servlet>
+	  	<!-- 개발자가 붙여주는 서블릿 이름(별칭) -->
+	  	<servlet-name>helloWorld</servlet-name>
+	  	<!-- 서블릿의 풀 네임(패키지+클래스명) -->	
+	  	<servlet-class>kr.or.ddit.servlet.HelloServlet</servlet-class> 
+	  </servlet>
+	  <servlet-mapping>
+	  	<servlet-name>helloWorld</servlet-name> <!-- 위 별칭과 이름이 같아야 함 -->
+	  	<url-pattern>/helloWorld</url-pattern>
+	  </servlet-mapping>
+	
+	==> http://localhost:8081/helloWorld에 접속하면 뜸
+
+
+
+
+
+======================================[0730]======================================
+
+[복습]
+
+1. 위자드 - simple project 체크 - kr.or.ddit / jspTest / war - finish
+
+2. 프로젝트 우클릭 - Java EE Tools - Generate Deployment Discriptor Stub 클릭
+
+3. pom.xml에 아래 사항 적어주기
+	<build>
+	  	<plugins>
+	  		<plugin>
+	  			<artifactId>maven-compiler-plugin</artifactId>
+	  			<configuration>
+	  				<source>1.8</source>
+	  				<target>1.8</target>
+	  			</configuration>
+	  		</plugin>
+	  	</plugins>
+	</build>
+
+4. Alt + F5 --> 업데이트
+
+5. src/main/java에 패키지 만들기 --> kr.or.kr.servlet
+
+6. class 만들기 --> HelloServlet
+
+7. extends HttpServlet하기 --> 에러발생
+   * 아래와 같은 내용 pom.xml에 추가하기(ctrl + shift + r)
+	<dependencies>
+	  	<!-- servlet api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+8. Alt + Shift + S --> doGet Override하기 --> 내용 2줄 지우기
+
+9. 내용 작성하기.
+	PrintWriter pw = resp.getWriter();
+	pw.write("test");
+
+10. url을 해당 서블릿에서 처리할지 매핑한다. (web.xml 방식으로)
+--> <servlet>과 <servlet-mapping>을 만들고
+	각각 안에 아래와 같이 만들어 준다.
+-->     <servlet>
+	  	<servlet-name>helloServlet</servlet-name>
+  		<servlet-class>kr.or.ddit.servlet.HelloServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  	<servlet-name>helloServlet</servlet-name>
+  		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>
+
+11. 서버생성 -> server name 적기 -> 프로젝트 선택 -> finish
+
+12. 서버의 Overview탭에 HTTP를 8092로 수정
+
+13. 서버의 Modules탭 -> Path를 /로 수정
+
+14. 클래스 파일에 doGet에 작성.
+	resp.setContentType("text/html; charset=utf-8");
+		 
+	PrintWriter pw = resp.getWriter();
+	pw.write("<html>");
+	pw.write("	<head>");
+	pw.write("		<title>helloServlet</title>");
+	pw.write("	</head>");
+	pw.write("	<body>");
+	pw.write("		<h1>hello, world 한글 테스트</h1>");
+	pw.write("	</body>");
+	pw.write("</html>");
+   * 한글이 안 나오면 charset=utf-8를 적어주면 된다.
+   * pw.println(""); 으로 쓰면 줄바꿈을 해줌(페이지 소스보기에서)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[이론]
+
+ㅁ init() -> 서블릿(톰캣) -> destory()
+                 :
+		 :
+         service() -> doXXX()
+
+ㅁ init()은 최초 1회만 실행됨(사용자가 URL에 처음 접속했을 때)
+   --> 이후 service()<doXXX()>메서드를 호출 함
+
+ㅁ 대다수는 URL을 입력했을 때 GET방식(단순요청)으로 간다.
+	--> 언젠가? POST방식(form을 통한 입력/저장, pw를 암호화할 때)으로 바꿀 수 있다.
+
+ㅁ 2xx: 정상
+   4xx: 클라이언트 오류 (주소 잘못입력 등..)
+   5xx: 개발자 오류
+
+ㅁ Servlet -> JSP.. JSP가 나온 이유
+   - url-mapping 
+   - out.write() --> 자바안에 html
+   - 협업의 어려움
+
+[연습문제]
+
+ㅁ localhost:8081/TimesTablesServlet에 구구단 출력하기
+   - jsp프로젝트에 TimesTablesServlet.java
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[Logback] - - log 라이브러리
+
+ㅁ 공식사이트
+   - logback.qos.ch
+
+ㅁ 필요한 이유 
+   - 개발 할때는 상세한 로깅 필요
+   - 운영 환경에서는 에러 메시지만 필요
+
+ㅁ dependency
+	<!-- logback api -->
+	<dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-classic</artifactId>
+		<version>1.2.3</version>
+	</dependency>
+
+ㅁ 위치 - src/main/resources
+   - 위 경로에 logback.xml파일을 만들고 아래 내용을 적어준다
+	<configuration>
+		<!-- appender(어디에 로그를 출력할지), layout(어떤 형식으로 출력할지), logger(로그 출력담당, 계층구조를 가짐) -->
+		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+			<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+				by default -->
+			<encoder>
+				<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n <!-- 레이아웃 -->
+				</pattern>
+			</encoder>
+		</appender>
+	
+		<root level="debug"> <!-- 기본 로거(root) -->
+			<appender-ref ref="STDOUT" />
+		</root>
+	</configuration>
+
+ㅁ 로거 환경설정
+   - 환경설정 - Java - Editor - Templates - New
+   - 이름 : logger
+   - 내용 : ${:import(org.slf4j.Logger,org.slf4j.LoggerFactory)}private static final Logger logger = LoggerFactory.getLogger(${enclosing_type}.class);
+
+ㅁ 사용법
+   - 위 경로로 다 설정 했다면 클래스에 아래 내용을 기입한다.
+	
+	// TimesTablesServlet.class: 현재 클래스의 정보가 저장됨
+	private Logger logger = LoggerFactory.getLogger(TimesTablesServlet.class);
+	--> logger 치고 ctrl + space 가능
+	
+	doget안에 logger.debug("TimesTablesServlet doGet()");를 적는다.
+
+ㅁ Logging level
+   - trace: debug보다 상세한 정보 출력
+   - debug: 프로그램을 디버깅 하기 위한 정보를 출력
+   - info: 상태변경과 같은 정보성 메시지 출력
+   - warn: 향후 시스템에 문제가 발생할 가능성이 있는 메시지 출력
+   - error: 에러가 발생했을 때(ex: catch)
+
+ㅁ 로거 출력할 때 주의할 점
+   doGet {
+	String method = req.getMethod();
+	// 아래처럼 하면 안됨
+	logger.debug("debug TimesTablesServlet doGet()" + method);
+	// 아래처럼 해야 됨
+	logger.debug("debug TimesTablesServlet doGet() {} {}", method, method + "test");
+   }
+
+
+
+
+
+======================================[0731]======================================
+
+[형상관리]
+
+ㅁ Git/Github의 특징
+   - 무료이고 빠르다
+   - 분산 버전 관리 시스템
+   - 네트워크가 단절되어도 개인 저장소에 commit 가능(리모트 사이트에는 불가)
+   - 개인PC --> Git  /  공유사이트 --> Github
+
+ㅁ Git 설정 --> git bash에서
+
+   - 삭제
+      > rm -rf ~~~
+
+   - 현재 경로
+      > pwd
+
+   - git config 조회
+      > git config -l // (= git config --list ; 롱옵션)
+
+   - 사용자 환경 설정
+      > git config --global user.name "jms"
+      > git config --global user.email "mingsoo0807@gmail.com"
+
+   * /e/A_TeachingMaterial/7.JspSpring --> mkdir git
+   * /e/A_TeachingMaterial/7.JspSpring/git --> mkdir user1
+   * /e/A_TeachingMaterial/7.JspSpring/git/user1 --> git init // 현재 경로를 기본경로로
+     ==> 해당 경로에 .git 폴더가 생김(숨긴상태) 
+     ==> 해당 폴더를 지우면 작업하던 git 내용이 없어짐.(삭제 가능)
+
+   - git status --> 추가되지 않았다고 빨간 글씨로 나옴
+
+   - git add UserVo.java --> 파일 한개가 add됨   
+   - git add *.java --> .java인 파일들이 add됨   ==> 녹색으로 바뀜
+   - git add * --> 파일 전체가 add됨
+
+   - git commit -m 'userVo' --> 파일 전체가 commit 됨, 'userVo'라는 설명이 달림
+			==> 사라짐
+
+   -------- 현재까지 내PC에 저장함.
+
+   - github.com에 접속
+   - new repository 생성
+      > Repository name: git
+      > Description: 설명(옵션)
+      > Public / Private
+     --> Create repository 클릭
+     ==> https://github.com/gguksoon/git.git으로 주소가 생성됨
+           ==> https://github.com/gguksoon/git로 접속해도 됨
+
+  ------------------------------ repository 생성 끝
+
+   - bash로 가서 연결
+       > git remote add origin https://github.com/gguksoon/git.git (Shift + Insert)
+
+   - 확인
+       > git remote -v
+
+   - push
+       > git push -u origin master   <-- master 브랜치에 입력해라..
+					(-u옵션은 한번 입력한 뒤 앞으로 
+ 					  git push만 해도 -u 뒤에 문장이 수행됨)
+
+   - .git 위치로 이동
+      > git clone https://github.com/gguksoon/git   <-- git이 생성
+      > git clone https://github.com/gguksoon/git user2  <-- user2에 생성
+
+   --> user2에서 작업을하고 add, commit, push를 한 다음
+
+   --> user1에서 확인하면 변경사항이 없음
+
+   --> git pull을 해주면 된다.
+
+  ------------------------------ 끝
+  
+  -------------------------------- 다른 사용자가 같은 파일을 수정할 때... 시작
+
+  - git log --> 커밋 이력이 나옴
+
+  - 수정을 시작하면 커밋된 사항이 나오고 충돌난 부분이 주석으로 나타남
+  - 고치고 다시 add, commit, push하면 됨.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+[Eclipse + Git]
+ㅁ 프로젝트 생성 -> kr.or.ddit / git / war -> 1.8 컴파일러 등록 -> 
+  프로젝트 우클릭 -> Team - Share Project 클릭 - Git 선택 후 Next
+  -> Use or create ... 선택 -> git(프로젝트명) 선택 -> Create Repository 클릭
+  -> finish
+
+ㅁ show view에 other -> git repositories, git staging 선택
+   - Git Staging에서 Unstaged Changes의 항목을 선택해서
+     Staged Changes로 드래그해 놓고, Commit Message를 적는다.
+    * .classpath, .project를 빼고 커밋한다.
+          --> .gitignore파일에 등록가능(Ctrl + Shift + R)
+		==> /target/
+		    .classpath
+		    .settings	   ==> 3가지를 등록..
+		    .project	
+    * 위 사항은 커밋하기 전에 적어야 된다. --> ★★★★★
+      (처음에 하지 않으면 적용이 안된다. 다시 작업해야됨.) 
+    * 위 사항이 번거로울 수 있기에 자동으로 해주는 방법이 있다.
+      ==> gitignore.io ==> eclipse, maven 선택 후 생성
+         ==> 생성된 내용을 .gitignore에 덮어쓰기
+
+       --> git staging 에서 모든 파일 commit and push
+
+
+
+   - remote 연결
+      <push 설정>
+     > git repositories탭 -> git 열기 -> Remotes가 안열리면 연결안된 상태
+      -> 우클릭 Create Remote -> 이름 그대로(origin), push 후 create 
+       테스트용 repository 생성(github.com에서), 이름은 eGit.. ->
+       주소 복사하여  -> change클릭 아마 붙여쓰기 될거임
+       -> user, password에는 깃헙계정입력 -> finish
+      -> advanced -> add all branches spec -> finish -> save
+       <pull 설정>
+        - 녹색화살표에 우클릭 Configure Fetch 선택, change 주소, 계정 입력->
+        finish -> advanced 선택 -> finish -> save and push
+
+       
+	<테스트>
+       Git.java 고치고 git staging에서 commit and push
+
+
+	<확인... >
+	수업중에 진행하는 jsp 프로젝트를 github에 올리기
+	1. github에 리모트 저장소 생성: jsp
+	2. 이클립스에 있는 jsp 프로젝트를 github이랑 연동하기
+	   2-1) .gitignore 먼저 생성 -------->> ★★★★★★★★★★
+
+
+
+
+
+======================================[0801]======================================
+
+[JSP] --> Java Server Pages.. 
+          Servlet이 Java Code안에 HTML이 포함되는 불편이 있어,
+          이를 줄이기 위해 나온것이 JSP(HTML안에 Java Code)이다.
+
+ㅁ webapp폴더가 root폴더가 된다.
+   - localhost:8081/jsp/hello.jsp
+ㅁ <% %> 안에서 java코드를 작성할 수 있다.
+   - jsp에서는 Ctrl+1로 import할 수 없으니 코드를 작성하며 Ctrl+Space로 자동완성
+     하며 자동으로 import시키는 것이 좋다.
+     <%
+	  Date dt = new Date();
+	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+     %>
+ㅁ 출력하기
+       hello.jsp : <%=sdf.format(dt)%>
+
+ㅁ page Directive(지시자)
+	<%@page import="java.text.SimpleDateFormat"%>
+	<%@page import="java.util.Date"%>
+
+ㅁ 스크립틀릿(자바코드 작성)
+	<%
+		Date dt = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	%>
+
+ㅁ 표현식: 값을 출력한다 --> <%=표현할 데이터 %>
+	<%=sdf.format(dt)%>
+
+ㅁ 주석
+	<%-- 주석 --%>
+
+ㅁ servlet ≒ jsp (jsp는 servlet으로 변환됨)
+
+ㅁ 구구단 출력하기
+	<table border="1">
+		<%for(int i = 1; i <= 9; i++) { %>
+			<tr>
+				<%for(int j = 2; j <= 9; j++) { %>
+					<td><%=j %> * <%=i %> = <%=j*i %></td>
+				<%} %>
+			</tr>
+		<%} %>
+	</table>
+
+ㅁ 선언부(메소드, 변수를 선언) --> 디렉티브 바로 아래, DOCTYPE 바로 위
+	<%!
+		public int factorial(int fac) {
+			return 0;
+		}
+	%>
+
+ㅁ 메모이제이션: 메모이제이션(memoization)은 컴퓨터 프로그램이 동일한 계산을
+                 반복해야 할 때, 이전에 계산한 값을 메모리에 저장함으로써 동일한
+                 계산의 반복 수행을 제거하여 프로그램 실행 속도를 빠르게 하는
+                 기술이다. 동적 계획법의 핵심이 되는 기술이다. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
