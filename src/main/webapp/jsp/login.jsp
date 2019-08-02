@@ -5,6 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		// 라디오 버튼 클릭이벤트 등록
+		$('#get, #post').on('click', function() {
+			var method = $(this).attr("id");
+			$("form").attr("method", method);
+		})
+	})
+</script>
 </head>
 <body>
 	<!-- 
@@ -23,22 +33,15 @@
 			- name 속성의 값이 파라미터 이름
 			- value 속성이 파라미터 값
 	-->
-	<h2>get login</h2>
-	<form action="getLoginProcess.jsp" method="get">
-		user id : <input type="text" name="userId" value="brown"/><br>
-		user id : <input type="text" name="userId" value="cony"/><br>
-		password : <input type="password" name="password" value="brown1234"/><br>
-		<input type="submit" value="로그인"/>
-	</form>
-
-	<h2>post login</h2>	
-	<form action="postLoginProcess.jsp" method="post">
+	<h2>get / post login</h2>
+	get : <input type="radio" id="get" name="method" value="get" checked/>
+	post: <input type="radio" id="post" name="method" value="post"/>
+	<form action="loginProcess.jsp" method="get">
 		user id : <input type="text" name="userId" value="brown"/><br>
 		user id : <input type="text" name="userId" value="cony"/><br>
 		password : <input type="password" name="password" value="brown1234"/><br>
 		<input type="submit" value="로그인"/>
 	</form>
 	
-	<h2>post login</h2>
 </body>
 </html>

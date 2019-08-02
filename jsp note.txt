@@ -759,6 +759,11 @@ ${cursor}
 
 ======================================[0802]======================================
 
+ㅁ UTF-8 설정하기
+   - Get방식 UTF-8설정:
+	> server.xml에 URIEncoding="utf-8"추가하기(port 적는 위치)
+   - Post방식 UTF-8설정: 
+	> 파라미터를 받는 페이지에 <% request.setCharacterEncoding("utf-8"); %> 추가
 
 
 
