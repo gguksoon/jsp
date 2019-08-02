@@ -759,29 +759,53 @@ ${cursor}
 
 ======================================[0802]======================================
 
-ㅁ UTF-8 설정하기
+ㅁ UTF-8 설정하기: form을 사용할 때 설정하지 않으면 파라미터 한글이 깨짐
    - Get방식 UTF-8설정:
-	> server.xml에 URIEncoding="utf-8"추가하기(port 적는 위치)
+	> server.xml에 URIEncoding="utf-8"속성 추가하기(port 적는 위치)
    - Post방식 UTF-8설정: 
 	> 파라미터를 받는 페이지에 <% request.setCharacterEncoding("utf-8"); %> 추가
 
+ㅁ JSON(JavaScript Object Notation)
+   - jsp파일을 생성하고 아래와 같이 contentType을 수정한다.(HTML은 지운다.)
+	<%@ page language="java" contentType="application/json; charset=UTF-8"
+   	    pageEncoding="UTF-8"%>
 
+ㅁ Redirect: 클라이언트에게 다른 주소로 재 요청 하라고 응답
+   Request Dispatch: 요청을 받아 다른 jsp로 위임
+                     --> 서블릿으로 응답받고, jsp로 만들어줌
 
+ㅁ servlet 생성하기
+   위자드 - Servlet -> 
+   패키지명: kr.or.ddit.servlet / 클래스명: RedirectServlet -> Finish
 
+ㅁ dispatch방식 ==> servlet.RedirectServlet.java 참조
+   1. 웹브라우저 주소줄에 다음 url 입력 후 엔터
+      url: http://localhost:8081/redirectServlet
+   2. was(tomcat)이 /redirectServlet url을 처리해줄 수 있는 servlet을 찾는다.
+      mapping
+          1) web.xml
+          2) @WebServlet
+   3. 찾은 Servlet의 service메소드를 호출
+   4. service메소드에서는 요청한 객체의 메소드에 따라(request.getMethod)
+      doXXX(request, response)메소드를 호출
+      ** 위 예제의 경우 웹브라우저 주소줄에 url을 입력했기 때문에 GET요청이 되고
+         doGet메소드가 호출된다.
+   5. Servlet이 직접 응답을 생성하는것이 아니라 화면 생성을 담당하는 jsp파일에게
+      요청 위임
 
+ㅁ java 웹 개발 --> 요청처리: model1, model2
+   - model1: 요청을 jsp가 받는 경우
+	> 초기 개발시 속도가 빠름
+	> 유지보수시 문제 발생(코드 중복, 재사용이 힘듦)
+   - model2: 요청을 servlet이 받는 경우(servlet -> jsp 위임)
 
-
-
-
-
-
-
-
-
-
-
-
-
+ㅁ 연습문제 - 파라미터 받기 연습
+   - 두 개의 숫자 파라미터를 입력받아 두 숫자 사이의 모든 숫자의 합을 구하는 jsp
+   - localhost:8081/jsp/jsp/sumJsp?number=1&number2=10
+     화면에 1 ~ 10까지 사이에 있는 모든 숫자의 합을 화면 출력
+     * number파라미터는 number2 파라미터보다 항상 작다고 가정
+     result: 합의 결과
+	==> requestSign.jsp, signResult.jsp
 
 
 
