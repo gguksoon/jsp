@@ -684,6 +684,12 @@ ${cursor}
 	   2-1) .gitignore 먼저 생성 -------->> ★★★★★★★★★★
 
 
+[이클립스에서 깃허브 Import하기(선생님이 알려주신 방법)]
+Import -> Projects from Git -> Clone URI -> master체크 -> 디렉토리를 워크스페이스로
+-> 3번째 체크(Import as general project) -> finish
+
+프로젝트 우클릭 -> Configure -> Convert to Maven Project
+
 
 
 
@@ -811,32 +817,61 @@ ${cursor}
 
 
 
+======================================[0805]======================================
 
+[복습]
+ㅁ 페이지를 이동할 때
+   - Redirect: 
+	=> 클라이언트가 최초 요청
+	=> 서버가 클라이언트에게 다른 주소로 재 요청 하라고 응답
+	=> 클라이언트가 Redirect 정보를 바탕으로 재요청
+	=> 요청 2번
+   - Forward(Request Dispatch): 
+	=> 클라이언트가 최초 요청
+	=> Request Dispatch 서버내에서 요청 위임
+	=> 클라이언트 입장에서는 최초 요청에 대한 응답받음
+	=> 요청 1번
 
+ㅁ 요청처리
+   - model1: 요청을 jsp가 받음
+   - model2: 요청을 servlet이 받음
+	> 로그인을 하기 위해 로그인 화면이 필요
+	// jsp로 요청을 보내고 있음 --> model1
+	localhost:8081/jsp/login.jsp
+	
+	// servlet으로 요청을 보내도록 수정 --> model2
+	localhost:8081/jsp/login  (get)
+	
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+[로그인 model2 방식 구현] ==> kr.or.ddit.login.web.LoginController.java (servlet파일)
+			  ==> webapp/login/login.jsp (jsp파일)
+1. 로그인 화면 요청(get)
+   - login.jsp로 이동
+   - 서버상태 변경 없음
+   - 단순히 jsp로 위임만 하면 됨 -> forward가 적절
+2. 로그인 요청(post) ==> 만약 get방식으로 사용하게 된다면 servlet파일을 한개 더 생성
+   - 사용자가 ID, PW 입력
 
+ㅁ 콘솔창 포커스 없애기
+   - 프리퍼런스 - Console검색 - Show when~ 두개 체크해제
 
+ㅁ css 부트스트랩 -> http://bootstrapk.com/
+   - 다운받고 알집푼다음 폴더명을 bootstrap으로 변경하여 webapp안에 넣어준다.
 
+ㅁ 스코프의 종류 및 특성
+   - page: jsp 페이지 내에서만 공유되는 영역
+	==> ≒ java의 지역변수(if, for block)
+   - request: 클라이언트의 요청정보가 유지되는 동안 공유되는 영역(dispatch)
+	==> ≒ java의 지역변수
+   - ???: 
+   - ???: 2-5ppt보고 적자..
 
+ㅁ 개발자도구 - Application탭 - Cookies에 세션아이디가 나온다.
+   - 서버에서 해당 쿠키에 대한 정보를 30분마다 지운다(기본값)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ㅁ 속성관련 메소드
+   - .setAttribute()
 
 
 

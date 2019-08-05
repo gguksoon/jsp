@@ -1,14 +1,18 @@
 package kr.or.ddit.user.model;
 
 public class UserVo {
+	private String userId;		// 사용자 아이디
+	private String pass;		// 사용자 비밀번호
 	private String userName;	// 사용자 이름
-	private int userAge;		// 사용자 나이
-	private String userGender;	// 사용자 성별
 
-	public UserVo(String userName, int userAge, String userGender) {
+	public UserVo() {
+		
+	}
+	
+	public UserVo(String userId, String pass, String userName) {
+		this.userId = userId;
+		this.pass = pass;
 		this.userName = userName;
-		this.userAge = userAge;
-		this.userGender = userGender;
 	}
 
 	public String getUserName() {
@@ -19,26 +23,25 @@ public class UserVo {
 		this.userName = userName;
 	}
 
-	public int getUserAge() {
-		return userAge;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserAge(int userAge) {
-		this.userAge = userAge;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getUserGender() {
-		return userGender;
+	public String getPass() {
+		return pass;
 	}
 
-	public void setUserGender(String userGender) {
-		this.userGender = userGender;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	@Override
 	public String toString() {
-		return "UserVo [userName=" + userName + ", userAge=" + userAge + ", userGender=" + userGender + "]";
+		return "UserVo [userId=" + userId + ", pass=" + pass + ", userName=" + userName + "]";
 	}
-
 	
 }
