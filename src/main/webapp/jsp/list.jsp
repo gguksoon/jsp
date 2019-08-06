@@ -31,7 +31,7 @@
 		</tr>
 		<%for(UserVo user : userList) {%>
 			<tr>
-				<td><%=user.getUserName() %></td>
+				<td><%=user.getUserNm()%></td>
 			</tr>
 		<%} %>
 		

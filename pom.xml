@@ -4,11 +4,19 @@
   <artifactId>jsp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
+<repositories>
+	<repository>
+		<id>oracle</id>
+		<name>ORACLE JDBC Repository</name>
+		<url>http://maven.jahia.org/maven2</url>
+	</repository>
+</repositories> 
   
   <build>
   	<plugins>
   		<plugin>
-  			<!--  maven compiler plugin -->
+  			<!-- maven compiler plugin -->
   			<artifactId>maven-compiler-plugin</artifactId>
   			<configuration>
   				<source>1.8</source>
@@ -17,7 +25,7 @@
   		</plugin>
   	</plugins>
   </build>
-  
+
   <!-- 프로젝트에서 사용하는 의존성 관리(라이브러리) -->
   <dependencies>
   	<!-- servlet api -->
@@ -25,7 +33,7 @@
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.0.1</version>
-		<scope>provided</scope>
+		<scope>provided</scope> <!-- 톰캣에서 자동 제공 -->
 	</dependency>
 	
 	<!-- logback api -->
@@ -34,5 +42,29 @@
 		<artifactId>logback-classic</artifactId>
 		<version>1.2.3</version>
 	</dependency>
+	
+	<!-- mybatis api -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.5.2</version>
+	</dependency>
+
+	<!-- jdbc api -->
+	<dependency>
+		<groupId>com.oracle</groupId>
+		<artifactId>ojdbc6</artifactId>
+		<version>12.1.0.2</version>
+		<scope>provided</scope> <!-- 제공되어진다.. 컴파일에서만 -->
+	</dependency>
+	
+	<!-- junit api -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.12</version>
+		<scope>test</scope> <!-- 배포 안됨 -->
+	</dependency>
+	
   </dependencies>
 </project>

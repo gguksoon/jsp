@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet {
 		
 		// 사용자가 입력한 계정정보와 db
 		UserVo userVo = new UserVo();
-		userVo.setUserName("정브라우니");
+		userVo.setUserNm("정브라우니");
 		userVo.setUserId("brown");
 		userVo.setPass("brown1234");
 		

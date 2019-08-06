@@ -19,14 +19,14 @@
 	<table>
 		<tr>
 			<th>이름</th>
-			<th>나이</th>
-			<th>성별</th>
+			<th>아이디</th>
+			<th>비밀번호</th>
 		</tr>
 		<%for(UserVo userVo : userList){ %>
 			<tr>
-				<td><%=userVo.getUserName() %></td>
-				<td><%=userVo.getUserAge() %></td>
-				<td><%=userVo.getUserGender() %></td>
+				<td><%=userVo.getUserNm()%></td>
+				<td><%=userVo.getUserId() %></td>
+				<td><%=userVo.getPass() %></td>
 			</tr>		
 		<%} %>
 	</table>

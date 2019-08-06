@@ -877,33 +877,167 @@ Import -> Projects from Git -> Clone URI -> master체크 -> 디렉토리를 워�
 
 
 
+======================================[0806]======================================
 
+ㅁ 유저리스트 페이지
+1. main 화면 사용자 리스트 클릭
+   - localhost:8081/userList
 
+2. UserListController
+   - doGet
+	> userDao 사용자 리스트 조회
+	> request 객체에 사용자 리스트 정보를 저장
+	> userList.jsp를 통해서 화면응답을 생성하도록 위임
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+ㅁ mybatis ==> http://www.mybatis.org/mybatis-3/ko/index.html
+     (새로만드는 문서에서는 굳이 ibatis를 사용할 필요 없이 mybatis로 생성하자)
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ 마이바티스를 사용하기 위해 mybatis-x.x.x.jar 파일을 클래스패스에 두어야 한다.
+      메이븐을 사용한다면 pom.xml에 다음의 설정을 추가하자.
+<dependency>
+	<groupId>org.mybatis</groupId>
+	<artifactId>mybatis</artifactId>
+	<version>3.5.2</version>
+</dependency>
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ XML에서 SqlSessionFactory 빌드하기 ==> main/resources/kr/or/ddit/config/mybatis
+						에 mybatis-config.xml 파일
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="kr/or/ddit/config/mybatis/db.properties"></properties>
+	
+	<typeAliases>
+		<typeAlias alias="userVo" type="kr.or.ddit.user.model.UserVo"/>
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.user}" />
+				<property name="password" value="${jdbc.pass}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="kr/or/ddit/config/mybatis/mapper/user.xml" />
+	</mappers>
+	
+</configuration>
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ db.properties ==> main/resources/kr/or/ddit/config/mybatis
+			에 db.properties 파일
+jdbc.driver=oracle.jdbc.driver.OracleDriver
+jdbc.url=jdbc:oracle:thin:@localhost:1521:XE
+jdbc.user=JMS
+jdbc.pass=java
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ MybatisUtil.java ==> main/java/kr.or.ddit.util
+package kr.or.ddit.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+public class MybatisUtil {
 
+	private static SqlSessionFactory factory;
+	
+	static {
+		String resource = "kr/or/ddit/config/mybatis/mybatis-config.xml";
+		try {
+			InputStream inputStream = Resources.getResourceAsStream(resource);
+			factory = new SqlSessionFactoryBuilder().build(inputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static SqlSession getSession() {
+		return factory.openSession();
+	}
+} 
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ user.xml ==> /jsp/src/main/resources/kr/or/ddit/config/mybatis/mapper/user.xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mybatis.example.BlogMapper">
+	<select id="getUserList" resultType="userVo">
+		select * 
+		  from users
+	</select>
+</mapper>
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ db 등록 ==> user scheme.sql ( /res에 있음 )
+	- 테이블 생성: 1~27번째 줄 실행
+	- 데이터 추가: 33~37번째 줄
+	- 비밀번호 업뎃: update users set pass = userid || '1234';
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ UserDao
+	public List<UserVo> getUserList() {
+		SqlSession sqlSession = MybatisUtil.getSession();
+		List<UserVo> userList = sqlSession.selectList("user.getUserList");
+		sqlSession.close(); // 안닫으면 계속된 요청이 있을 때 커넥션객체를 모두 소모하여 응답이 안돌아온다.
+		
+		return userList;
+	}
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+   ■ 톰캣에 ojdbc넣기
+	- pom.xml
+<dependency>
+	<groupId>com.oracle</groupId>
+	<artifactId>ojdbc6</artifactId>
+	<version>12.1.0.2</version>
+	<scope>provided</scope> <!-- 제공되어진다.. 컴파일에서만 -->
+</dependency>
 
+	- provided이므로 톰캣의 lib폴더에 jar파일을
+	E:\B_Util\5.ApacheTomcat\apache-tomcat-7.0.73\lib에 넣어주기
+	(.m2 폴더에 존재하는 jar파일)
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+ㅁ TDD의 목표: 잘 동작하는 깔끔한 코드
+
+   userDao -> 테스트 코드
+	1. userDao 생성
+	2. userDao를 테스트할 수 있는 테스트 코드를 나중에 작성
+   TDD
+	1. userDao를 테스트할 수 있는 테스트 코드를 먼저 작성
+	2. userDao 생성
+
+ㅁ JUnit
+ wizard -> JUnit Test Case -> name: UserDaoTest -> Finish
 
 
 

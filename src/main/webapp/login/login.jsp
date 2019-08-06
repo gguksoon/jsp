@@ -28,9 +28,9 @@
     <div class="container">
 	 <%
 	 	HttpSession httpSession = request.getSession();
-    	UserVo userVo = (UserVo)httpSession.getAttribute("S_USERVO");
-    	String userName = "";
-    	userName = userVo == null ? "" : userVo.getUserName();
+	     	UserVo userVo = (UserVo)httpSession.getAttribute("S_USERVO");
+	     	String userName = "";
+	     	userName = userVo == null ? "" : userVo.getUserNm();
 	 %>
 	  사용자 이름: <%=userName %>
 	  
@@ -44,12 +44,12 @@
         	userId = userId == null ? "" : userId;
         %>
         <input type="text" id="userId" name="userId" class="form-control"
-        	   placeholder="userId" required autofocus value="<%=userId%>"> <!-- value="brown" -->
+        	   placeholder="userId" required autofocus value="brown"> <!-- value="<%=userId%>" -->
         	   
         
         <label for="pass" class="sr-only">Password</label>
         <input type="password" id="pass" name="pass" class="form-control" 
-        	   placeholder="Password" required> <!-- value="brown1234" -->
+        	   placeholder="Password" required value="brown1234"> <!-- value="brown1234" -->
 		
         <div class="checkbox">
           <label>
