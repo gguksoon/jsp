@@ -1043,11 +1043,32 @@ public class MybatisUtil {
 
 
 
+======================================[0807]======================================
 
+ㅁ
+localhost/scopeTest(get)
+   --> input이 4개가 있는 view를 응답으로 생성
 
+view 3개의 input에 값을 입력 후 submit(post)
+   - request: brown
+   - session: sally
+   - application: cony
+	==> scope에는 page라는 스코프가 더 있지만 걔는 servlet에서 사용할 수 없고
+            jsp에서만 사용되며 잘 안쓴다.
 
+localhost/scopeTest(post)
+3가지 값을 각 영역 속성으로 저장
+속성데이터를 출력할 수 있는 scopeResult.jsp forward
 
+ㅁ 동일(==): 같은 메모리 공간에 있는 객체냐.. (동일이면 동치이다)
+   ex) UserVo userVo = new UserVo();
+       UserVo userVo2 = userVo;
 
+       if(userVo == userVo2) ==> true
+
+ㅁ 동치(equals)
+   ex) UserVo userVo = new UserVo("brown");
+       UserVo userVo2 = new UserVo("brown");
 
 
 
