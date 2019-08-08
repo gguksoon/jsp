@@ -1,15 +1,15 @@
 package kr.or.ddit.user.model;
 
-public class UserVo {
+public class User {
 	private String userId;		// 사용자 아이디
 	private String pass;		// 사용자 비밀번호
 	private String userNm;	// 사용자 이름
 
-	public UserVo() {
+	public User() {
 		
 	}
 	
-	public UserVo(String userId, String pass, String userName) {
+	public User(String userId, String pass, String userName) {
 		this.userId = userId;
 		this.pass = pass;
 		this.userNm = userName;
@@ -44,4 +44,10 @@ public class UserVo {
 		return "UserVo [userId=" + userId + ", pass=" + pass + ", userName=" + userNm + "]";
 	}
 	
+	public boolean checkLoginValidate(String userId, String pass) {
+		if(userId.equals(this.userId) && pass.equals(this.pass)) {
+			return true;
+		}
+		return false;
+	}
 }
