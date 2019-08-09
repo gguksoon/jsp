@@ -26,11 +26,13 @@
 
 <script src="<%=request.getContextPath()%>/js/jquery-3.4.1.min.js"></script>
 
+<script src="<%=request.getContextPath()%>/js/js.cookie.js"></script>
+
 <script>
 	$(function() {
 		
 		// 쿠키에 있는 userId를 불러온다.
-		var userId = getCookie("userId");
+		var userId = Cookies.get('userId');
 		if(userId != null) {
 			$("#userId").val(userId);
 			$("#rememberMe").prop('checked', true);
@@ -43,44 +45,19 @@
 			// 체크 되었으면
 			if($('#rememberMe').prop('checked')) {
 				// userId 쿠키를 생성하고 값은 userId input의 값을 쿠기 값으로 설정
-				setCookie("userId", $("#userId").val(), 30);
-				
+				Cookies.set("userId", $("#userId").val(), {expires : 30});
 			// 체크 안되었으면
 			} else {
 				// 기존에 사용자가 아이디를 쿠키에 저장하는 기능을 사용하다가 더 이상 사용하지 않는 경우
 				// 처음부터 아이디 쿠키 저장 기능을 사용하지 않는 경우
 				// ==> userId 쿠키를 삭제
-				deleteCookie("userId");
+				Cookies.remove("userId");
 			}
 			
 			// 로그인 요청(현재 button으로 되있으므로 submit해준다.)
 			$("#frm").submit();
 		})
 	});
-
-	function getCookie(cookieId) {
-		var strArr = document.cookie.split("; ");
-
-		for (var i = 0; i < strArr.length; i++) {
-			if (strArr[i].indexOf(cookieId) != -1) {
-				return strArr[i].substr(strArr[i].indexOf("=") + 1,
-						strArr[i].length);
-			}
-		}
-		return null;
-	}
-
-	function setCookie(cookieNm, cookieValue, expires) {
-		var dt = new Date();
-		dt.setDate(dt.getDate() + Number(expires));
-
-		document.cookie = cookieNm + "=" + cookieValue + "; path=/; expires="
-				+ dt.toGMTString();
-	}
-	
-	function deleteCookie(cookieNm) {
-		setCookie(cookieNm, "", -1);
-	}
 </script>
 </head>
 

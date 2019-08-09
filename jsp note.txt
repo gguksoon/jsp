@@ -1219,7 +1219,11 @@ from dual;
 	==> decodeURIComponent("%ED%95%9C%EA%B8%80");
 	==> 결과: "한글"
 
-
+ㅁ Cookies API
+ - <script src="<%=request.getContextPath()%>/js/js.cookie.js"></script>
+ - Cookies.get('userId');
+ - Cookies.set("userId", $("#userId").val(), {expires : 30});
+ - Cookies.remove("userId");
 
 
 
