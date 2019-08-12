@@ -1,3 +1,37 @@
+-------------------------------- 수업시간에 추가한 내용들 -------------------------------------
+select * from users;
+
+-- 1~5 유저 수정
+update users set alias = '곰',  reg_dt = sysdate where userid='brown';
+update users set alias = '토끼',  reg_dt = sysdate  where userid='cony';
+update users set alias = '병아리',  reg_dt = sysdate  where userid='sally';
+update users set alias = '사람',  reg_dt = sysdate  where userid='james';
+update users set alias = '달',  reg_dt = sysdate  where userid='moon';
+
+commit;
+
+-- 100개 유저 생성
+insert into users(userid, usernm, pass, reg_dt, alias)
+select 'xuserid' || level,
+       'xusernm' || level,
+       'xuserid' || level || 'pass',
+       sysdate - (level * 10), 
+       'xuseralias' || level
+  from dual
+connect by level <= 100;
+
+commit;
+
+--
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
 
   CREATE TABLE USERS 
    (	USERID VARCHAR2(20 BYTE), 
