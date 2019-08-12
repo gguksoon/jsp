@@ -36,6 +36,7 @@
 		if(userId != null) {
 			$("#userId").val(userId);
 			$("#rememberMe").prop('checked', true);
+			$('#pass').focus();
 		}
 		
 		// signin btn 클릭 이벤트 핸들러
@@ -57,6 +58,13 @@
 			// 로그인 요청(현재 button으로 되있으므로 submit해준다.)
 			$("#frm").submit();
 		})
+		
+		$("#userId, #pass").keydown(function(key) {
+			if (key.keyCode == 13) {
+				$("#frm").submit();
+			}
+		});
+		
 	});
 </script>
 </head>
@@ -90,11 +98,11 @@
 
 			<label for="pass" class="sr-only">Password</label> <input
 				type="password" id="pass" name="pass" class="form-control"
-				placeholder="Password" required value="brown1234">
+				placeholder="Password" required>
 			<!-- value="brown1234" -->
 
 			<div class="checkbox">
-				<label> <input id="rememberMe" type="checkbox" value="remember-me">
+				<label> <input id="rememberMe" name="rememberMe" type="checkbox" value="remember-me">
 					Remember me
 				</label>
 			</div>

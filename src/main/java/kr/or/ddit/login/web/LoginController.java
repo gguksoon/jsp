@@ -21,7 +21,14 @@ import kr.or.ddit.user.repository.UserDao;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-       
+    
+	private IUserDao userDao;
+	
+	@Override
+	public void init() throws ServletException {
+		userDao = new UserDao();
+	}
+
 	/**
 	* Method : doGet
 	* 작성자 : Jo Min-Soo
@@ -35,9 +42,11 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 웹 브라우저가 보낸 cookie 확인
 		Cookie[] cookies = request.getCookies();
-		for(Cookie cookie : cookies) {
-			logger.debug("cookie name : {}, cookie value : {}, cookie path: {}",
-					cookie.getName(), cookie.getValue(), cookie.getPath());
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				logger.debug("cookie name : {}, cookie value : {}, cookie path: {}",
+						cookie.getName(), cookie.getValue(), cookie.getPath());
+			}
 		}
 		
 		// 응답을 생성할 때 웹브라우저에게 쿠키를 저장할 것을 지시
@@ -66,12 +75,16 @@ public class LoginController extends HttpServlet {
 		// userId, password 파라미터 logger 출력
 		String userId = request.getParameter("userId");
 		String pass = request.getParameter("pass");
+		String rememberMe = request.getParameter("rememberMe"); // 체크되어있을때만 옴
+		
+		manageUserIdCookie(response, userId, rememberMe);
 		
 		logger.debug("userId: {}", userId);
 		logger.debug("password: {}", pass);
 		
-		// 사용자가 입력한 계정정보와 db
-		IUserDao userDao = new UserDao();
+		// 사용자가 입력한 계정정보와 db에 있는 값이랑 비교
+		
+		// db에서 조회해 온 사용자 정보
 		User user = userDao.getUser(userId);
 		
 		// 사용자가 입력한 파라미터 정보와 db에서 조회해온 값이 동일할 경우 --> webapp/main.jsp
@@ -96,6 +109,16 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("userId", userId);
 			doGet(request, response);
 		}
+	}
+
+	private void manageUserIdCookie(HttpServletResponse response, String userId, String rememberMe) {
+		// rememberMe 파라미터가 존재할 경우 userId를 cookie로 생성
+		Cookie cookie = new Cookie("userId", userId);
+		if(rememberMe != null)
+			cookie.setMaxAge(60 * 60 * 24 * 30); // second
+		else 
+			cookie.setMaxAge(0);
+		response.addCookie(cookie);
 	}
 
 }
