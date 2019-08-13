@@ -1220,7 +1220,7 @@ from dual;
 	==> 결과: "한글"
 
 ㅁ Cookies API
-   - <script src="<%=request.getContextPath()%>/js/js.cookie.js"></script>
+   - <script src="${pageContext.request.contextPath }/js/js.cookie.js"></script>
    - Cookies.get('userId');
    - Cookies.set("userId", $("#userId").val(), {expires : 30});
    - Cookies.remove("userId");

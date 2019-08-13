@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="<%=request.getContextPath() %>/redirectServlet" method="post">
+	<form action="${pageContext.request.contextPath }/redirectServlet" method="post">
 		<input type="text" name="userName" value="kim"/> <br>
 		<input type="text" name="userAge" value="30"/> <br>
 		<input type="text" name="userGender" value="남자"/> <br>

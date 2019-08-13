@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
+<script src="${pageContext.request.contextPath }/js/jquery-3.4.1.min.js"></script>
 <script>
 	$(function() {
 		$("#sum, #mul").click(function() {
@@ -15,7 +15,7 @@
 </script>
 </head>
 <body>
-	<form action="<%=request.getContextPath() %>/jsp/signResult.jsp" method="get">
+	<form action="${pageContext.request.contextPath }/jsp/signResult.jsp" method="get">
 		작은 숫자: <input type="text" name="number" value="1"/> <br>
 		큰 숫자: <input type="text" name="number2" value="10"/> <br>
 		합 <input type="radio" name="sign" id="sum" value="sum" checked/>
