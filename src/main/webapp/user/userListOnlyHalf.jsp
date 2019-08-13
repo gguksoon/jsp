@@ -36,7 +36,7 @@
 
 				<div class="row">
 					<div class="col-sm-8 blog-main">
-						<h2 class="sub-header">사용자 리스트</h2>
+						<h2 class="sub-header">사용자 리스트(onlyHalf)</h2>
 						<div class="table-responsive">
 							<table class="table table-striped">
 								<tr>

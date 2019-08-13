@@ -49,10 +49,10 @@
   	<servlet-name>HelloServlet</servlet-name>
   	<!-- 서블릿의 풀 네임(패키지+클래스명) -->	
   	<servlet-class>kr.or.ddit.servlet.HelloServlet</servlet-class> 
-  	<init-param>
-  		<param-name>test</param-name>
-  		<param-value>sally</param-value>
-  	</init-param>
+<!--   	<init-param> -->
+<!--   		<param-name>test</param-name> -->
+<!--   		<param-value>sally</param-value> -->
+<!--   	</init-param> -->
   	<load-on-startup>1</load-on-startup> 
   </servlet>
   <servlet-mapping>
