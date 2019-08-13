@@ -46,12 +46,12 @@
 									<th>등록일시</th>
 								</tr>
 								
-								<c:forEach items="${userList}" var="userVo">
+								<c:forEach items="${userList}" var="user">
 									<tr>
-									<td>${userVo.userId}</td>
-									<td>${userVo.userNm}</td>
-									<td>${userVo.alias}</td>
-									<td>${userVo.getReg_dt_fmt()}</td>
+									<td>${user.userId}</td>
+									<td>${user.userNm}</td>
+									<td>${user.alias}</td>
+									<td>${user.getReg_dt_fmt()}</td>
 									</tr>
 								</c:forEach>
 								
