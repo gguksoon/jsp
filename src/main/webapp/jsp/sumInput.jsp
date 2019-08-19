@@ -26,7 +26,7 @@
 	}
 </style>
 
-<script src="${pageContext.request.contextPath }/js/jquery-3.4.1.min.js"></script>
+<script src="${cp }/js/jquery-3.4.1.min.js"></script>
 <script>
 	$(function() {
 		$("#sum, #mul").click(function() {
@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<form class="form-signin" action="${pageContext.request.contextPath }/sumCalculation" method="post">
+	<form class="form-signin" action="${cp }/sumCalculation" method="post">
 		<label>숫자1: </label>
 		<input type="text" name="num1" value="1"/> <br>
 		
