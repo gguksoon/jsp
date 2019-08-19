@@ -7,4 +7,13 @@
 		select * 
 		  from lprod
 	</select>
+	
+	<select id="getLprod" parameterType="String" resultType="hashmap">
+		select lprod_nm, lprod_gu, buyer_name, prod_id, prod_name, prod_price
+  		  from prod, lprod, buyer
+ 		 where lprod_gu = #{lprod_gu}
+   		   and prod_lgu = lprod_gu
+   		   and prod_buyer = buyer_id
+	</select>
+	
 </mapper>
