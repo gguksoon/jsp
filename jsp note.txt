@@ -1384,12 +1384,42 @@ from dual;
 
 ======================================[0820]======================================
 
+ㅁ JSTL: 커스텀 태그 중 많이 사용되는 것을 모아 만든 스펙
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+   - 	<c:set var="code" value="01"/> --> 정의
+     	${code} --> 사용
 
+   - 	<c:if test="${code == '01'}">
+		code is 01
+	</c:if>
 
+   -	<c:choose>
+		<c:when test="${code == '01' }">
+			code is 01
+		</c:when>
+		<c:when test="${code == '02' }">
+			code is 02
+		</c:when>
+		<c:otherwise>
+			code is otherwise
+		</c:otherwise>
+	</c:choose>
 
+   -	<c:forEach begin="0" end="10" var="i" step="2">
+		${i } <br>
+	</c:forEach>
 
+   -	<c:forEach items="${userList}" var="user" varStatus="loop">
+		<!-- count가 10이하일 때만 출력되도록(데이터가 10건만) -->
+		<c:if test="${loop.count <= 10 }">
+			index: ${loop.index } / count: ${loop.count } / ${user.userNm } / ${user.userId } <br>
+		</c:if>
+	</c:forEach>
 
+   -	<c:forEach items="${user }" var="entry">
+		${entry.key } / ${entry.value } <br>
+	</c:forEach>
 
 
 
