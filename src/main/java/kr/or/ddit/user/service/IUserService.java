@@ -1,42 +1,36 @@
-package kr.or.ddit.user.repository;
+package kr.or.ddit.user.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-
 import kr.or.ddit.user.model.User;
 
-public interface IUserDao {
+public interface IUserService {
 
 	/**
 	* Method : getUserList
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
-	* @param sqlSession 
 	* @return
 	* Method 설명 : 전체 사용자 리스트 조회
 	*/
-	List<User> getUserList(SqlSession sqlSession);
+	List<User> getUserList();
 	
 	/**
 	* Method : getUserListOnlyHalf
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
-	* @param sqlSession 
 	* @return
 	* Method 설명 : 사용자 50명 리스트 조회
 	*/
-	List<User> getUserListOnlyHalf(SqlSession sqlSession);
+	List<User> getUserListOnlyHalf();
 
 	/**
 	* Method : getUser
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
-	* @param sqlSession 
 	* @param userId
 	* @return
 	* Method 설명 : 사용자 상세 조회
 	*/
-	User getUser(SqlSession sqlSession, String userId);
-	
+	User getUser(String userId);
 }

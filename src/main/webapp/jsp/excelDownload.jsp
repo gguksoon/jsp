@@ -1,7 +1,7 @@
+<%@page import="kr.or.ddit.user.service.UserService"%>
+<%@page import="kr.or.ddit.user.service.IUserService"%>
 <%@page import="kr.or.ddit.user.model.User"%>
 <%@page import="java.util.List"%>
-<%@page import="kr.or.ddit.user.repository.UserDao"%>
-<%@page import="kr.or.ddit.user.repository.IUserDao"%>
 <%@ page language="java" contentType="application/vnd.ms-excel; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,8 +13,8 @@
 <body>
 <%
 	response.setHeader("Content-Disposition", "attahchement; filename=line.xls");
-	IUserDao userDao = new UserDao();
-	List<User> userList = userDao.getUserList();
+	IUserService userService = new UserService();
+	List<User> userList = userService.getUserList();
 %>
 	<table>
 		<tr>

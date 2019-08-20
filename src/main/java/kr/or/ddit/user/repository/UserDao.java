@@ -13,47 +13,38 @@ public class UserDao implements IUserDao {
 	* Method : getUserList
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
+	* @param sqlSession
 	* @return
 	* Method 설명 : 사용자 전체 리스트 조회
 	*/
 	@Override
-	public List<User> getUserList() {
-		SqlSession sqlSession = MybatisUtil.getSession();
-		List<User> userList = sqlSession.selectList("user.getUserList");
-		sqlSession.close(); // 안닫으면 계속된 요청이 있을 때 커넥션객체를 모두 소모하여 응답이 안돌아온다.
-		
-		return userList;
+	public List<User> getUserList(SqlSession sqlSession) {
+		return sqlSession.selectList("user.getUserList");
 	}
 	
 	/**
 	* Method : getUserListOnlyHalf
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
+	* @param sqlSession 
 	* @return
 	* Method 설명 : 사용자 50명 리스트 조회
 	*/
 	@Override
-	public List<User> getUserListOnlyHalf() {
-		SqlSession sqlSession = MybatisUtil.getSession();
-		List<User> userList = sqlSession.selectList("user.getUserListOnlyHalf");
-		sqlSession.close();
-		
-		return userList;
+	public List<User> getUserListOnlyHalf(SqlSession sqlSession) {
+		return sqlSession.selectList("user.getUserListOnlyHalf");
 	}
 
 	/**
 	* Method : getUser
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
-	* @param userId
+	* @param sqlSession, userId
 	* @return
 	* Method 설명 : userId를 갖는 사용자 정보 조히
 	*/
 	@Override
-	public User getUser(String userId) {
-		SqlSession sqlSession = MybatisUtil.getSession();
-		User userVo = sqlSession.selectOne("user.getUser", userId);
-		sqlSession.close();
-		return userVo;
+	public User getUser(SqlSession sqlSession, String userId) {
+		return sqlSession.selectOne("user.getUser", userId);
 	}
 }

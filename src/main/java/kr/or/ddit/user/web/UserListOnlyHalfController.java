@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.user.model.User;
-import kr.or.ddit.user.repository.UserDao;
+import kr.or.ddit.user.service.UserService;
 
 @WebServlet("/userListOnlyHalf")
 public class UserListOnlyHalfController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserDao userDao = new UserDao();
-		List<User> userList = userDao.getUserListOnlyHalf();
+		UserService userService = new UserService();
+		List<User> userList = userService.getUserListOnlyHalf();
 
 		request.setAttribute("userList", userList);
 		
