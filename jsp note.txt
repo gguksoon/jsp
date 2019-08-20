@@ -1413,7 +1413,8 @@ from dual;
    -	<c:forEach items="${userList}" var="user" varStatus="loop">
 		<!-- count가 10이하일 때만 출력되도록(데이터가 10건만) -->
 		<c:if test="${loop.count <= 10 }">
-			index: ${loop.index } / count: ${loop.count } / ${user.userNm } / ${user.userId } <br>
+			index: ${loop.index } / count: ${loop.count } /
+			${user.userNm } / ${user.userId } <br>
 		</c:if>
 	</c:forEach>
 
@@ -1421,9 +1422,27 @@ from dual;
 		${entry.key } / ${entry.value } <br>
 	</c:forEach>
 
+ㅁ html태그에 태그 저장하기
+   - html
+	<c:forEach items="${userList}" var="user">
+		<tr class="userTr" data-userId="${user.userId }">
+			<input type="hidden" value="${user.userId }"/>
+			<td>${user.userId}</td>
+			<td>${user.userNm}</td>
+			<td>${user.alias}</td>
+			<td>${user.getReg_dt_fmt()}</td>
+		</tr>
+	</c:forEach>
 
+   - script
+	// 클릭된 tr태그의 자식태그(td)중 첫번째 자식의 텍스트 문자열
+	var tdText = $(this).children().eq(1).text();
+			
+	// input 태그에 저장된 값 확인
+	var inputValue = $(this).find("input").val();
 
-
+	// data 속성으로 값(tr 태그에 저장된 값) 확인
+	var dataValue = $(this).data("userid"); // ★모두 소문자로 치환됨★
 
 
 

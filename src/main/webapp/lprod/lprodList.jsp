@@ -31,11 +31,12 @@
 		
 		// 사용자 정보 클릭 시 이벤트 핸들러
 		$(".lprodTr").on("click", function() {
-			// 클릭된 tr태그의 자식태그(td)중 첫번째 자식의 텍스트 문자열
-			console.log("selected lprod_gu: " + $(this).children().eq(1).text());
+			// 클릭된 tr태그의 data 불러오기
+			var data = $(this).data("lprodgu");
+			console.log("data: " + data);
 			
 			// input 태그에 값 설정
-			$("#lprod_gu").val($(this).children().eq(1).text());
+			$("#lprod_gu").val(data);
 			
 			// form 태그 이용하여 전송
 			console.log("serialize: " + $("#frm").serialize());
@@ -76,7 +77,7 @@
 								</tr>
 								
 								<c:forEach items="${lprodList}" var="lprodVo">
-									<tr class="lprodTr">
+									<tr class="lprodTr" data-lprodGu="${lprodVo.lprod_gu }">
 										<td>${lprodVo.lprod_id}</td>
 										<td>${lprodVo.lprod_gu}</td>
 										<td>${lprodVo.lprod_nm}</td>
