@@ -3,10 +3,12 @@ package kr.or.ddit.user.repository;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import kr.or.ddit.common.model.Page;
 import kr.or.ddit.user.model.User;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.user.service.UserService;
@@ -73,4 +75,40 @@ public class UserServiceTest {
 		assertEquals("brown1234", userVo.getPass());
 	}
 
+	/**
+	* Method : getUserPagingListTest
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* Method 설명 : 사용자 페이징 리스트 조회 
+	*/
+	@Test
+	public void getUserPagingListTest() {
+		/***Given***/
+		Page page = new Page();
+		page.setPage(3);
+		page.setPagesize(10);
+		
+		/***When***/
+		Map<String, Object> resultMap = userService.getUserPagingList(page);
+		List<User> userList = (List<User>) resultMap.get("userList");
+		int paginationSize = (Integer) resultMap.get("paginationSize");
+
+		/***Then***/
+		assertEquals(10, userList.size());
+		assertEquals("xuserid22", userList.get(0).getUserId());
+		assertEquals(11, paginationSize);
+	}
+	
+	@Test
+	public void ceilingTest() {
+		/***Given***/
+		int totalCnt = 105;
+		int pagesize = 10;
+
+		/***When***/
+		double paginationSize = Math.ceil((double)totalCnt / pagesize);
+
+		/***Then***/
+		assertEquals(11, (int)paginationSize);
+	}
 }

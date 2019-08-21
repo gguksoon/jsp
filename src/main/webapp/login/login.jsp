@@ -92,14 +92,11 @@
         	userId = userId == null ? "" : userId;
         %>
 			<input type="text" id="userId" name="userId" class="form-control"
-				placeholder="userId" required autofocus>
-			<!-- value="<%=userId%>" -->
-
+				placeholder="userId" required autofocus value="brown">
 
 			<label for="pass" class="sr-only">Password</label> <input
 				type="password" id="pass" name="pass" class="form-control"
-				placeholder="Password" required>
-			<!-- value="brown1234" -->
+				placeholder="Password" required value="brown1234">
 
 			<div class="checkbox">
 				<label> <input id="rememberMe" name="rememberMe" type="checkbox" value="remember-me">
