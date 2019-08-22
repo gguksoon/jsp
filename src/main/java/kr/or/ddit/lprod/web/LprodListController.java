@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.lprod.model.LprodVO;
-import kr.or.ddit.lprod.repository.ILprodDao;
-import kr.or.ddit.lprod.repository.LprodDaoImpl;
+import kr.or.ddit.lprod.service.ILprodService;
+import kr.or.ddit.lprod.service.LprodService;
 
 @WebServlet("/lprodList")
 public class LprodListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ILprodDao lprodDao = new LprodDaoImpl();
-		List<LprodVO> lprodList = lprodDao.getLprodList();
+		ILprodService lprodService = new LprodService();
+		List<LprodVO> lprodList = lprodService.getLprodList();
 		
 		request.setAttribute("lprodList", lprodList);
 		

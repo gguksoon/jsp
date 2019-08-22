@@ -10,27 +10,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import kr.or.ddit.lprod.repository.ILprodDao;
-import kr.or.ddit.lprod.repository.LprodDaoImpl;
+import kr.or.ddit.lprod.service.ILprodService;
+import kr.or.ddit.lprod.service.LprodService;
+import kr.or.ddit.lprod.service.LprodService;
 
 @WebServlet("/prodList")
 public class ProdListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private ILprodDao lprodDao;
+	private ILprodService lprodService;
 	
 	@Override
 	public void init() throws ServletException {
-		lprodDao = new LprodDaoImpl();
+		lprodService = new LprodService();
 	}
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String lprod_gu = request.getParameter("lprod_gu");
 		
-		List<Map> prodList = lprodDao.getProdList(lprod_gu);
+		List<Map> prodList = lprodService.getProdList(lprod_gu);
 		
 		request.setAttribute("prodList", prodList);
 		

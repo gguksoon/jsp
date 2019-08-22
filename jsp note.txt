@@ -1460,7 +1460,21 @@ from dual;
 
 
 
+======================================[0822]======================================
 
+ㅁ 제품그룹 페이징 리스트
+   - url: /lprodPagingList
+   - pagesize: 5건
+
+   - 사용자 페이징 리스트와 마찬가지로 제품그룹도 페이징 처리가 된 새로운 메뉴를 개발
+   - 페이지네이션, 이전페이지, 다음페이지 포함
+   - dao, service 테스트코드
+
+ㅁ CRUD중 CREATE와 UPDATE 구현할 예정
+   - 사용자 페이징 리스트에 있는 사용자 등록 버튼 클릭 시
+	> 사용자 등록 화면으로 이동
+	  UserFormController
+		doGet ==> webapp/user/userForm.jsp를 forward
 
 
 

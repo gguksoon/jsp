@@ -28,11 +28,17 @@ public class UserPagingListController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// page, pagesize 파라미터 받아서 int로 형변환
-		int paramPage = Integer.parseInt(request.getParameter("page"));
-		int paramPagesize = Integer.parseInt(request.getParameter("pagesize"));
+		String paramPage = request.getParameter("page");
+		String paramPagesize = request.getParameter("pagesize");
+		
+		int page = paramPage == null ? 1 : Integer.parseInt(paramPage);
+		int pagesize = paramPagesize == null ? 10 : Integer.parseInt(paramPagesize);
+		
+		Page p = new Page(page, pagesize);
+		request.setAttribute("pageVo", p);
 		
 		// userService 객체를 이용하여 getUserPagingList를 호출
-		Map<String, Object> resultMap = userService.getUserPagingList(new Page(paramPage, paramPagesize));
+		Map<String, Object> resultMap = userService.getUserPagingList(p);
 		List<User> userList = (List<User>) resultMap.get("userList");
 		int paginationSize = (Integer) resultMap.get("paginationSize");
 		

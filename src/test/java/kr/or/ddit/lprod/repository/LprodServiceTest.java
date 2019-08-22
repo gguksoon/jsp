@@ -5,29 +5,21 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import kr.or.ddit.common.model.Page;
 import kr.or.ddit.lprod.model.LprodVO;
-import kr.or.ddit.util.MybatisUtil;
+import kr.or.ddit.lprod.service.ILprodService;
+import kr.or.ddit.lprod.service.LprodService;
 
-public class LprodDaoTest {
+public class LprodServiceTest {
 
-	private ILprodDao lprodDao;
-	private SqlSession sqlSession;
+	private ILprodService lprodService;
 	
 	@Before
 	public void setup() {
-		lprodDao = new LprodDaoImpl();
-		sqlSession = MybatisUtil.getSession();
-	}
-	
-	@After
-	public void tearDown() {
-		sqlSession.close();
+		lprodService = new LprodService();
 	}
 	
 	/**
@@ -41,28 +33,30 @@ public class LprodDaoTest {
 		/***Given***/
 
 		/***When***/
-		List<LprodVO> lprodList = lprodDao.getLprodList(sqlSession);
-		
+		List<LprodVO> lprodList = lprodService.getLprodList();
+
 		/***Then***/
 		assertEquals(9, lprodList.size());
 	}
 	
 	/**
-	* Method : getLprodTest
+	* Method : getProdListTest
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
-	* Method 설명 : getLprod 테스트
+	* Method 설명 : getProdList 테스트
 	*/
 	@Test
-	public void getLprodTest() {
+	public void getProdListTest() {
 		/***Given***/
 
 		/***When***/
-		List<Map> prodList = lprodDao.getProdList(sqlSession, "P101");
+		List<Map> prodList = lprodService.getProdList("P302");
 		
 		/***Then***/
-		assertEquals(6, prodList.size());
+		assertEquals(15, prodList.size());
+		assertEquals("P302000001", prodList.get(0).get("PROD_ID"));
 	}
+	
 	
 	/**
 	* Method : getLprodPagingListTest
@@ -78,28 +72,14 @@ public class LprodDaoTest {
 		page.setPagesize(5);
 
 		/***When***/
-		List<LprodVO> lprodList = lprodDao.getLprodPagingList(sqlSession, page);
+		Map<String, Object> resultMap = lprodService.getLprodPagingList(page);
+		List<LprodVO> lprodList = (List<LprodVO>) resultMap.get("lprodList");
+		int paginationSize = (Integer) resultMap.get("paginationSize");
 
 		/***Then***/
 		assertEquals(4, lprodList.size());
 		assertEquals("P302", lprodList.get(0).getLprod_gu());
-	}
-	
-	/**
-	* Method : getLprodTotalCntTest
-	* 작성자 : Jo Min-Soo
-	* 변경이력 :
-	* Method 설명 : getLprodTotalCnt 테스트
-	*/
-	@Test
-	public void getLprodTotalCntTest() {
-		/***Given***/
-
-		/***When***/
-		int totalCnt = lprodDao.getLprodTotalCnt(sqlSession);
-		
-		/***Then***/
-		assertEquals(9, totalCnt);
+		assertEquals(2, paginationSize);
 	}
 
 }

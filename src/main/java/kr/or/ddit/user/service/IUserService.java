@@ -42,7 +42,6 @@ public interface IUserService {
 	* Method : getUserPagingList
 	* 작성자 : Jo Min-Soo
 	* 변경이력 :
-	* @param sqlSession
 	* @param page
 	* @return
 	* Method 설명 : 사용자 페이징 리스트 조회
