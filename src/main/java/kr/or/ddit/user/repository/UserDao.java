@@ -75,5 +75,33 @@ public class UserDao implements IUserDao {
 	public int getUserTotalCnt(SqlSession sqlSession) {
 		return sqlSession.selectOne("user.getUserTotalCnt");
 	}
+
+	/**
+	* Method : insertUser
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param sqlSession
+	* @param user
+	* @return
+	* Method 설명 : 사용자 등록
+	*/
+	@Override
+	public int insertUser(SqlSession sqlSession, User user) {
+		return sqlSession.insert("user.insertUser", user);
+	}
+
+	/**
+	* Method : deleteUser
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param sqlSession
+	* @param userId
+	* @return
+	* Method 설명 : 사용자 삭제 
+	*/
+	@Override
+	public int deleteUser(SqlSession sqlSession, String userId) {
+		return sqlSession.delete("user.deleteUser", userId);
+	}
 	
 }

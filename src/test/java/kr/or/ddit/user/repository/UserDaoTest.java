@@ -2,6 +2,9 @@ package kr.or.ddit.user.repository;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,7 +22,7 @@ public class UserDaoTest {
 
 //	ㅁ junit 테스트 메소드 실행 순서
 //	   - @Before -> @Test -> @After
-//	   - @Test 테[스트 메소드가 실행되기 전에 @Before이 적용된 메소드를 먼저
+//	   - @Test 테스트 메소드가 실행되기 전에 @Before이 적용된 메소드를 먼저
 //		     실행되고, @Test 메소드 실행된다.
 //	   - @After이 적용된 메소드를 실행한다.
 //	   - @Test 메소드는 실행순서가 보장되지 않는다.
@@ -28,6 +31,7 @@ public class UserDaoTest {
 	
 	private IUserDao userDao;
 	private SqlSession sqlSession;
+	private String userId = "brownTest";
 	
 	// 테스트에 공통적으로 필요한 자원을 생성 / 초기화
 	@Before
@@ -35,6 +39,8 @@ public class UserDaoTest {
 		logger.debug("before");
 		userDao = new UserDao();
 		sqlSession = MybatisUtil.getSession();
+		
+		userDao.deleteUser(sqlSession, userId);
 	}
 
 	// 테스트에 공통적으로 필요한 자원을 해제
@@ -134,6 +140,28 @@ public class UserDaoTest {
 		
 		/***Then***/
 		assertEquals(105, totalCnt);
+	}
+	
+	/**
+	* Method : insertUserTest
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* Method 설명 : 사용자 등록 테스트 
+	 * @throws ParseException 
+	*/
+	@Test
+	public void insertUserTest() throws ParseException {
+		/***Given***/
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-08");
+		User user = new User(userId, "brownTest1234", "브라운테스트", "곰테스트", date,
+							 "대전광역시 중구 중앙로 76", "영민빌딩 2층 DDIT", "34940");
+		
+		/***When***/
+		int insertCnt = userDao.insertUser(sqlSession, user);
+		sqlSession.commit();
+
+		/***Then***/
+		assertEquals(1, insertCnt);
 	}
 
 }

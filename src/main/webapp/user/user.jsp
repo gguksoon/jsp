@@ -16,8 +16,6 @@
 <link rel="icon" href="../../favicon.ico">
 <title>Jsp-basicLib</title>
 <%@ include file="/commonJsp/basicLib.jsp" %>
-
-<head>	
 </head>
 
 <body>
@@ -36,7 +34,7 @@
 				<form class="form-horizontal" role="form">
 
 					<div class="form-group">
-						<label for="userNm" class="col-sm-2 control-label">사용자 아이디</label>
+						<label for="userId" class="col-sm-2 control-label">사용자 아이디</label>
 						<div class="col-sm-10">
 							<label class="control-label">${user.userId }</label>
 						</div>
@@ -50,14 +48,14 @@
 					</div>
 					
 					<div class="form-group">
-						<label for="userNm" class="col-sm-2 control-label">별명</label>
+						<label for="alias" class="col-sm-2 control-label">별명</label>
 						<div class="col-sm-10">
 							<label class="control-label">${user.alias }</label>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label for="userNm" class="col-sm-2 control-label">등록일</label>
+						<label for="reg_dt" class="col-sm-2 control-label">등록일</label>
 						<div class="col-sm-10">
 							<label class="control-label">${user.reg_dt_fmt }</label>
 						</div>
@@ -72,7 +70,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-default">사용자 수정</button>
+							<button type="button" id="regBtn" class="btn btn-default">사용자 수정</button>
 						</div>
 					</div>
 				</form>
