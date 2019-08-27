@@ -3,6 +3,8 @@ package kr.or.ddit.user.repository;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import kr.or.ddit.common.model.Page;
 import kr.or.ddit.user.model.User;
@@ -10,6 +12,7 @@ import kr.or.ddit.util.MybatisUtil;
 
 public class UserDao implements IUserDao {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
 	/**
 	* Method : getUserList
 	* 작성자 : Jo Min-Soo
@@ -89,6 +92,20 @@ public class UserDao implements IUserDao {
 	public int insertUser(SqlSession sqlSession, User user) {
 		return sqlSession.insert("user.insertUser", user);
 	}
+	
+	/**
+	* Method : updateUser
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param sqlSession
+	* @param user
+	* @return
+	* Method 설명 : 사용자 수정
+	*/
+	@Override
+	public int updateUser(SqlSession sqlSession, User user) {
+		return sqlSession.update("user.updateUser", user);
+	}
 
 	/**
 	* Method : deleteUser
@@ -103,5 +120,5 @@ public class UserDao implements IUserDao {
 	public int deleteUser(SqlSession sqlSession, String userId) {
 		return sqlSession.delete("user.deleteUser", userId);
 	}
-	
+
 }

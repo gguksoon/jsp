@@ -20,23 +20,6 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	$(function() {
-		// 서비스 오픈시에 반드시 제거할 것
-		//setTestData();  ==> 개발자도구에서 실행할 것
-		
-		// 사용자 등록 버튼 클릭 이벤트 핸들러
-		$("#regBtn").on("click", function() {
-			var regId = /^[a-zA-Z\d\.!@#]{5,20}$/;
-			
-			if(!(regId.test($("#userId").val()))) {
-				alert("사용자 아이디가 양식에 일치하지 않습니다.");
-				$("#userId").focus();
-				return false;
-			}
-			
-			// 정규식이 모두 통과하면..
-			$("#frm").submit();
-		});
-		
 		// 우편번호 검색 버튼 클릭 이벤트 핸들러
 		$("#zipcodeBtn").on("click", function() {
 			new daum.Postcode({
@@ -50,17 +33,6 @@
 			}).open();
 		});
 	});
-	
-	function setTestData() {
-		$("#userId").val("abrownTest");
-		$("#userNm").val("브라운테스트");
-		$("#alias").val("곰테스트");
-		$("#reg_dt").val("2019-08-08");
-		$("#addr1").val("대전 중구 중앙로 76");
-		$("#addr2").val("영민빌딩 2층 DDIT");
-		$("#zipcode").val("34940");
-		$("#pass").val("brownTest1234");
-	}
 </script>
 </head>
 
@@ -76,13 +48,20 @@
 				<%@ include file="/commonJsp/left.jsp" %>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h2 class="sub-header">사용자 등록</h2>
-				<form id="frm" class="form-horizontal" role="form" action="${cp }/userForm" method="post" enctype="multipart/form-data">
+				<h2 class="sub-header">사용자 수정</h2>
+				<form id="frm" class="form-horizontal" role="form" action="${cp }/userUpdate" method="post" enctype="multipart/form-data">
 
+					<div class="form-group">
+						<label for="userId" class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<img src="${cp }/userPicture?userId=${user.userId}"/>
+						</div>
+					</div>
+					
 					<div class="form-group">
 						<label for="userId" class="col-sm-2 control-label">사용자 아이디</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="userId" name="userId" placeholder="사용자 아이디" value="${param.userId }">
+							<input type="text" class="form-control" id="userId" name="userId" placeholder="사용자 아이디" value="${user.userId }" readonly>
 							${userIdMsg }
 						</div>
 					</div>
@@ -97,28 +76,28 @@
 					<div class="form-group">
 						<label for="userNm" class="col-sm-2 control-label">사용자 이름</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="userNm" name="userNm" placeholder="사용자 이름" value="${param.userNm }">
+							<input type="text" class="form-control" id="userNm" name="userNm" placeholder="사용자 이름" value="${user.userNm }">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="alias" class="col-sm-2 control-label">별명</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="alias" name="alias" placeholder="별명" value="${param.alias }">
+							<input type="text" class="form-control" id="alias" name="alias" placeholder="별명" value="${user.alias }">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="reg_dt" class="col-sm-2 control-label">생일</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" id="reg_dt" name="reg_dt" placeholder="생일" value="${param.reg_dt }">
+							<input type="date" class="form-control" id="reg_dt" name="reg_dt" placeholder="생일" value="${user.reg_dt_fmt }">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="zipcode" class="col-sm-2 control-label">우편번호</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="우편번호" value="${param.zipcode }" readonly>
+							<input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="우편번호" value="${user.zipcode }" readonly>
 						</div>
 						<div class="col-sm-2">
 							<button type="button" class="btn btn-default" id="zipcodeBtn">우편번호 검색</button>
@@ -128,27 +107,27 @@
 					<div class="form-group">
 						<label for="addr1" class="col-sm-2 control-label">주소1</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control col-sm-8" id="addr1" name="addr1" placeholder="주소1" value="${param.addr1 }" readonly>
+							<input type="text" class="form-control col-sm-8" id="addr1" name="addr1" placeholder="주소1" value="${user.addr1 }" readonly>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="addr2" class="col-sm-2 control-label">주소2</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="addr2" name="addr2" placeholder="주소2" value="${param.addr2 }">
+							<input type="text" class="form-control" id="addr2" name="addr2" placeholder="주소2" value="${user.addr2 }">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label for="pass" class="col-sm-2 control-label">비밀번호</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="pass" name="pass" placeholder="비밀번호">
+							<input type="password" class="form-control" id="pass" name="pass" placeholder="비밀번호" value="${user.pass }">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button id="regBtn" type="button" class="btn btn-default">사용자 등록</button>
+							<button type="submit" class="btn btn-default">사용자 수정</button>
 						</div>
 					</div>
 				</form>

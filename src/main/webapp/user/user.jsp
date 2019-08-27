@@ -16,9 +16,24 @@
 <link rel="icon" href="../../favicon.ico">
 <title>Jsp-basicLib</title>
 <%@ include file="/commonJsp/basicLib.jsp" %>
+
+<script>
+	$(function() {
+		$("#updateBtn").on("click", function() {
+			console.log($("#paramId").val());
+			$("#frm").submit();
+		});
+	})
+</script>
 </head>
 
 <body>
+
+	<!-- 개발자 입장에서 데이터를 전송하기 위하여 사용하는 form -->
+	<form id="frm" action="${cp }/userUpdate" method="get">
+		<input type="hidden" id="paramId" name="paramId" value="${user.userId}"/>
+	</form>
+	
 	<!-- header -->
 	<%@ include file="/commonJsp/header.jsp" %> 
 
@@ -33,6 +48,14 @@
 
 				<form class="form-horizontal" role="form">
 
+					<div class="form-group">
+						<label for="userId" class="col-sm-2 control-label">사용자 사진</label>
+						<div class="col-sm-10">
+<%-- 							<img src="${cp }${user.realfilename2 }"/> --%>
+							<img src="${cp }/userPicture?userId=${user.userId}"/>
+						</div>
+					</div>
+					
 					<div class="form-group">
 						<label for="userId" class="col-sm-2 control-label">사용자 아이디</label>
 						<div class="col-sm-10">
@@ -70,7 +93,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="button" id="regBtn" class="btn btn-default">사용자 수정</button>
+							<button type="button" id="updateBtn" class="btn btn-default">사용자 수정</button>
 						</div>
 					</div>
 				</form>

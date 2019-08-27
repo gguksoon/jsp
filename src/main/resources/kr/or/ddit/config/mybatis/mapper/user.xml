@@ -38,9 +38,24 @@
 	
 	<!-- 사용자 등록 -->
 	<insert id="insertUser" parameterType="user">
-		insert into users(userId, userNm, pass, reg_dt, alias, addr1, addr2, zipcode)
-       values(#{userId}, #{userNm}, #{pass}, #{reg_dt}, #{alias}, #{addr1}, #{addr2}, #{zipcode})
+		insert into users(userId, userNm, pass, reg_dt, alias, addr1, addr2, zipcode, filename, realfilename)
+       		values(#{userId}, #{userNm}, #{pass}, #{reg_dt}, #{alias}, #{addr1}, #{addr2}, #{zipcode}, #{filename}, #{realfilename})
 	</insert>
+	
+	<!-- 사용자 수정 -->
+	<update id="updateUser" parameterType="user">
+		update users 
+		   set pass = #{pass, jdbcType=VARCHAR},
+			   userNm = #{userNm, jdbcType=VARCHAR},
+			   alias = #{alias, jdbcType=VARCHAR},
+			   reg_dt = #{reg_dt, jdbcType=DATE},
+			   addr1 = #{addr1, jdbcType=VARCHAR},
+			   addr2 = #{addr2, jdbcType=VARCHAR},
+			   zipcode = #{zipcode, jdbcType=VARCHAR},
+			   filename = #{filename, jdbcType=VARCHAR},
+			   realfilename = #{realfilename, jdbcType=VARCHAR}
+		 where userid = #{userId}
+	</update>
 	
 	<!-- 사용자 삭제 -->
 	<delete id="deleteUser" parameterType="String">

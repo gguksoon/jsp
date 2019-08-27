@@ -1490,6 +1490,96 @@ from dual;
 
 
 
+======================================[0826]======================================
+
+ㅁ 파일업로드 ==> post방식만 가능
+   - form tag enctype 속성 
+	> application/x-www-form-urlencoded: 파라미터 전송 시 &파라미터명=파라미터값 형태로 전송
+	> multipart/form-data: 데이터를 바이너리 형식으로 전송
+   - 보내는 쪽(form태그)에서 enctype="multipart/form-data"를 설정한다.
+   - 받는 쪽(servlet)에서 @MultipartConfig를 설정한다.
+	> maxRequestSize: 요청 최대 크기
+	> maxFileSize: 파일당 최대 크기
+	> @MultipartConfig(maxFileSize = 1024 * 1024 * 5, 	==> 파일당 5MB 5개만
+			   maxRequestSize = 1024 * 1024 * 5 * 5)
+   - request로 받은 파일은 Part파일로 생성된다.
+	> Part part = request.getPart("file"); // file: input의 name
+
+	> part.getName(): 업로드 파라미터명(input의 name속성)
+	  ==> file
+	> part.getContentType()
+	  ==> image/png
+	> part.getSize(): 업로드 파일 사이즈
+	  ==> 79052
+	> part.getHeader("Content-Disposition"): 파일에 대한 정보..
+	  ==> form-data; name="file"; filename="1a3a8c624457cbdcf173e9a53faea8f9.png"
+
+ㅁ 주의할 점
+   1. input type = "file"
+   2. form 
+   	> enctype = "multipart/form-data"
+	> method = "post"
+   3. @MultipartConfig()
+
+ㅁ table 수정함 
+   > alter table users add(realfilename2 varchar2(200));
+
+ㅁ 파일업로드했을 때 파일이 저장되는 경로
+   > -Dwtp.deploy="E:\A_TeachingMaterial\7.JspSpring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps"
+   > 해당 파일을 지우면 사이트에서 보이지 않음.. ==> 서버재시작하면 다시 보내줌(안되면 clean)
+
+
+
+
+
+======================================[0827]======================================
+
+ㅁ 사용자 수정 기능 개발
+   - controller class
+	> 화면요청
+	> 사용자 정보 업데이트 요청
+
+   - service method
+	> test code 작성
+
+   - dao method
+	> test code 작성
+
+   - sql 작성
+
+   - 화면(view)
+
+   ** 파일은 업데이트 개념이 없음 --> 삭제 후 신규입력
+
+   - 요구조건
+	> 사용자 아이디는 수정 불가
+	> 사용자 수정화면에 현재 저장되어 있는 사용자 사진을 띄워준다(상세보기 화면)
+	> 기존 사진을 업데이트하는 경우 e:upload폴더에 있는 기존 파일은 남겨둔채로 작업
+	> mybatis 사용시 파라미터가 null일 때..
+	<insert id="insertUser" parameterType="user">
+		insert into users(userId, realfilepath)
+			values(#{userId}, #{realfilepath, jdbcType=VARCHAR})
+	</insert>		// realfilepath가 널이더라도 들어가게 함
+
+ㅁ 암호화 ==> https://seed.kisa.or.kr/kisa/index.do
+	  ==> res폴더안에 파일만 저장함, kisa의 알고리즘을 일부 수정함
+   - 해시함수: 복호화가 안되는 암호(암호문의 결과 일부를 잘라서 이용하므로)
+	==> 단방향 암호화 ==> sha256
+
+   - 블록암호: 복호화 가능한 암호
+	==> 양방향 암호화 ==> aria, seed
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

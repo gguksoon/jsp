@@ -154,7 +154,7 @@ public class UserDaoTest {
 		/***Given***/
 		Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-08");
 		User user = new User(userId, "brownTest1234", "브라운테스트", "곰테스트", date,
-							 "대전광역시 중구 중앙로 76", "영민빌딩 2층 DDIT", "34940");
+							 "대전광역시 중구 중앙로 76", "영민빌딩 2층 DDIT", "34940", "", "");
 		
 		/***When***/
 		int insertCnt = userDao.insertUser(sqlSession, user);
@@ -162,6 +162,21 @@ public class UserDaoTest {
 
 		/***Then***/
 		assertEquals(1, insertCnt);
+	}
+	
+	@Test
+	public void updateUserTest() throws ParseException {
+		/***Given***/
+		insertUserTest();
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-08");
+		User user = new User(userId, "test_pass", "test_nm", date, "test_alias");
+		
+		/***When***/
+		int updateCnt = userDao.updateUser(sqlSession, user);
+		sqlSession.commit();
+
+		/***Then***/
+		assertEquals(1, updateCnt);
 	}
 
 }

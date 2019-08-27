@@ -2,6 +2,7 @@ package kr.or.ddit.user.repository;
 
 import static org.junit.Assert.assertEquals;
 
+import java.security.Provider.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -123,12 +124,26 @@ public class UserServiceTest {
 		/***Given***/
 		Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-08");
 		User user = new User(userId, "brownTest1234", "브라운테스트", "곰테스트", date,
-							 "대전광역시 중구 중앙로 76", "영민빌딩 2층 DDIT", "34940");
+							 "대전광역시 중구 중앙로 76", "영민빌딩 2층 DDIT", "34940", "", "");
 		
 		/***When***/
 		int insertCnt = userService.insertUser(user);
 
 		/***Then***/
 		assertEquals(1, insertCnt);	
+	}
+	
+	@Test
+	public void updateUserTest() throws ParseException {
+		/***Given***/
+		insertUserTest();
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse("2019-08-08");
+		User user = new User(userId, "수정테스트", "수정테스트", date, "수정테스트");
+
+		/***When***/
+		int updateCnt = userService.updateUser(user);
+
+		/***Then***/
+		assertEquals(1, updateCnt);
 	}
 }

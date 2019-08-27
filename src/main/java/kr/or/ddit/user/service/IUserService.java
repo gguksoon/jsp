@@ -57,6 +57,16 @@ public interface IUserService {
 	* Method 설명 : 사용자 등록 
 	*/
 	int insertUser(User user);
+
+	/**
+	* Method : updateUser
+	* 작성자 : Jo Min-Soo
+	* 변경이력 :
+	* @param user
+	* @return
+	* Method 설명 : 사용자 수정
+	*/
+	int updateUser(User user);
 	
 	/**
 	* Method : deleteUser
@@ -67,6 +77,5 @@ public interface IUserService {
 	* Method 설명 : 사용자 삭제 
 	*/
 	int deleteUser(String userId);
-	
-	
+
 }
