@@ -1642,7 +1642,7 @@ from dual;
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 	
-ㅁ 국제화 태그
+ㅁ 국제화 태그 - jstl/i18n.jsp
  ==> .properties에 저장 ==> .properties에는 한글을 쓰면 유니코드로 변환된다.
  ==> 번역해주는 플러그인 property editor를 설치 ==> 구버전이라 201906에서 안나옴..
  ==> Help - Install New Software - Add -
@@ -1660,15 +1660,17 @@ from dual;
 
    - .jsp에서 사용하기
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-		
-   - 로케일 지정
-	> setLocale: Locale을 지정한다.
-	> request
-   - ?
-	>
-	>
 
-
+   - <fmt:bundle> : 출력할 메세지를 담고있는 리소스 번들 지정,
+		    <fmt:message>태그가 bundle 태그 안에 기술
+     <fmt:message> : 출력하고자 하는 code 지정
+     <fmt:param> : message에 파라미터가 있는 경우 전달
+     <fmt:setBundle> : basename에 리소스번들의 경로를 입력하여 
+		       <fmt:message>를 <fmt:bundle>에 감싸지 않고 사용하도록 해줌
+     <fmt:formatNumber> : 숫자를 국가별 형식으로 변환
+     <fmt:parseNumber> : 문자열을 숫자로 변환
+     <fmt:formatDate> : Date객체를 포매팅된 문자열로 변환
+     <fmt:parseDate> : 문자열을 date형식으로 변환
 
 
 
