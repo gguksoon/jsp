@@ -1642,7 +1642,7 @@ from dual;
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 	
-ㅁ 국제화 태그 - jstl/i18n.jsp
+ㅁ 국제화 태그 -> jstl/i18n.jsp
  ==> .properties에 저장 ==> .properties에는 한글을 쓰면 유니코드로 변환된다.
  ==> 번역해주는 플러그인 property editor를 설치 ==> 구버전이라 201906에서 안나옴..
  ==> Help - Install New Software - Add -
@@ -1672,6 +1672,9 @@ from dual;
      <fmt:formatDate> : Date객체를 포매팅된 문자열로 변환
      <fmt:parseDate> : 문자열을 date형식으로 변환
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ㅁ 실습 -> jstl/selectLocale.jsp
 
 
 
