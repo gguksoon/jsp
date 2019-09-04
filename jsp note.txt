@@ -1517,8 +1517,8 @@ from dual;
 ㅁ 주의할 점
    1. input type = "file"
    2. form 
-   	> enctype = "multipart/form-data"
-	> method = "post"
+   	> enctype="multipart/form-data"
+	> method="post"
    3. @MultipartConfig()
 
 ㅁ table 수정함 
@@ -1568,6 +1568,134 @@ from dual;
 
    - 블록암호: 복호화 가능한 암호
 	==> 양방향 암호화 ==> aria, seed
+
+
+
+
+
+======================================[0828]======================================
+
+ㅁ eXERD
+
+   * 개념모델링 -> 논리모델링 -> 물리모델링
+	모델링: 어떤 집합에서 어떤 속성을 관리할 것인가.
+   * 1정규화: 원자성
+   * 2정규화: 
+   * 3정규화: 이행적 함수 종속 제거
+
+   - exerd에서 대상DBMS를 Oracle로 변경
+
+   - DDL 뽑기(eXERD - 포워드엔지니어링)
+	=> 이름 앞에 스키마표시 제거 => 다음 
+		↑ 해당 단계에서 테이블 삭제하면 상단에 테이블 삭제가 추가됨
+	=> 모델 선택 => 다음
+	=> DDL 복사
+	
+ㅁ 계층쿼리 <-- res폴더에 저장(계층형쿼리 샘플 자료.sql)
+   - 게시판 계층구조, 답글..
+
+ㅁ SE2.zip 풀어서 src > main > webapp에 넣음 <-- res폴더에 저장(SE2.zip)
+   * 그리고 에러난 file_uploader.jsp파일 지움
+   * SE2 > index.jsp파일의 <script>를 아래처럼 수정
+	==> src="/js/jquery/jquery-3.2.1.js"를
+	    src="/js/jquery-3.4.1.min.js"로 수정
+   * 해당 파일은 Context Path가 "/"가 아니면 안됨
+
+ㅁ varchar2는 4000byte까지 가능하다..
+   ==> clob으로 이용해서 게시글내용을 저장할 것.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+		==> res > 게시판 개발 과제 - servlet_jsp(no ajax).pdf에 저장
+ㅁ 게시판 과제 ==> sem-pc > web > 제출과제 > 데이터입출력구현
+   0. erd(eXERD) <-- 수업시간에 한거..
+   1. 테이블명세서 ==> 다 하고 수작업..
+   2. 논리erd 캡쳐
+   3. 테이블정의서 ==> 1과 비슷		 * 1, 2는 논리/물리기준?..
+   4. 물리erd 캡쳐
+   5. 프로젝트 압축
+   6. 테스트..시나리오.. ==> 통과한 결과갯수와 테스트갯수가 동일해야 된다.
+			 ==> 테스트 시나리오 문서 작성 관련일자는 8/1 ~ 8/6
+   7. 게시판 다 짜고 수업시간에 할 예정..
+
+ㅁ 주의사항
+   1. 새로운 프로젝트로 개발
+   2. 다른 훈련생에게 물어보지 않기
+   3. 인터넷 검색, 본인 학습 정리자료, 기타 도서 자료, 수업시간 프로젝트 참고 가능
+   4. 기한: 9월 4일 4교시까지 진행
+	> 다 못해도 한 부분까지 제출
+	> 기능 작성을 다 못하신 분들은 2차 제출(9월 9일 9시까지 진행)
+   5. 카톡 제거
+   6. 테스트 시나리오 문서 작성 관련일자는 8/1 ~ 8/6
+
+
+
+
+
+======================================[0904]======================================
+
+ㅁ JSTL Map
+	<c:forEach items="${map }" var="m">
+		${m.key } / ${m.value }
+	</c:forEach>
+
+ㅁ JSTL URL태그: 자동으로 Context Path를 정해줌
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	
+ㅁ 국제화 태그
+ ==> .properties에 저장 ==> .properties에는 한글을 쓰면 유니코드로 변환된다.
+ ==> 번역해주는 플러그인 property editor를 설치 ==> 구버전이라 201906에서 안나옴..
+ ==> Help - Install New Software - Add -
+     이름: property e, location: http://propedit.sourceforge.jp/eclipse/updates
+ ==> PropertiesEditor만 선택하고 설치
+
+   - 예제: src/main/resources ==> 위자드 - File - test.properties
+
+   - 번역파일: 리소스번들이라 칭함.. 
+	==> kr.or.ddit.msg에 아래 파일 생성
+	==> message.properties <-- default(지원하지 않는 언어를 요청시)
+	    message_ko.properties
+  	    message_ja.properties
+	    message_en.properties
+
+   - .jsp에서 사용하기
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+		
+   - 로케일 지정
+	> setLocale: Locale을 지정한다.
+	> request
+   - ?
+	>
+	>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

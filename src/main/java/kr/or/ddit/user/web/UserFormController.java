@@ -84,7 +84,7 @@ public class UserFormController extends HttpServlet {
 			String ext = FileuploadUtil.getFileExtension(picture.getHeader("Content-Disposition"));
 			path = FileuploadUtil.getPath() + realFilename + ext;
 			
-			picture.write(path);
+			picture.write(path); 
 		}
 		
 		try {
@@ -110,8 +110,8 @@ public class UserFormController extends HttpServlet {
 			try {
 				insertCnt = userService.insertUser(user);
 				if(insertCnt == 1) { // 저장 성공 ==> 사용자 상세화면으로 이동
-					// 이렇게 보내면 현재 post이므로 /user의 post로 가는데, /user는 post가 없고 get만 존재한다
 //					request.getRequestDispatcher("/user").forward(request, response);
+					// 이렇게 보내면 현재 post이므로 /user의 post로 가는데, /user는 post가 없고 get만 존재한다
 		
 					// 해결법1: /user의 doGet을 모두 복사하여 이곳에 붙여넣기
 					// 해결법2: /user의 doPost를 생성하여 doGet을 호출하도록 생성하기 <== 이 방법으로 해결함(즉, 위 forward를 해도 정상적 수행됨)
