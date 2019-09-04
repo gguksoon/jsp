@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +52,7 @@
 									<td>${userVo.userId}</td>
 									<td>${userVo.userNm}</td>
 									<td>${userVo.alias}</td>
-									<td>${userVo.getReg_dt_fmt()}</td>
+									<td><fmt:formatDate value="${userVo.reg_dt }" pattern="yyyy/MM/dd"/></td>
 									</tr>
 								</c:forEach>
 								
