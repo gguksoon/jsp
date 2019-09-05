@@ -1741,6 +1741,24 @@ from dual;
 
    - 위자드 Filter를 사용하면 web.xml에 매핑하지 않고 사용가능
 
+   - LoginController 구현
+
+   - Wrapper => Filter를 통해 요청에 없던 파라미터를 추가하는 방법
+	> class에 HttpServletRequestWrapper를 상속받음
+
+	> 기본생성자에서 이전에 받은 request를 수정한다.
+
+	> parameter 관련된 메소드(4가지)를 재정의 ==> kr.or.ddit.filter.wrapper ★
+						    DefaultCompanyCodeWrapper 참고
+	  >> String getParameter(String parameter)
+	  >> String[] getParameterValues(String parameter)
+	  >> Enumeration<String> getParameterNames()
+	  >> Map<String, String[]> getParameterMap()
+
+	> Filter에서 테스트
+
+	> Filter를 활용하여 Post의 setCharacterEncoding("UTF-8") 설정하기
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 ㅁ 최종 프로젝트
