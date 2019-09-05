@@ -1739,6 +1739,8 @@ from dual;
 		<url-pattern>/*</url-pattern>  	
 	</filter-mapping>
 
+   - 위자드 Filter를 사용하면 web.xml에 매핑하지 않고 사용가능
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 ㅁ 최종 프로젝트
