@@ -1680,18 +1680,27 @@ from dual;
 
 
 
+======================================[0905]======================================
 
+ㅁ 국제화 태그 - timeZone
 
-
-
-
-
-
-
-
-
-
-
+ㅁ el
+   - length(obj)
+   - toUpperCase(str)
+   - toLowerCase(str)
+   - substring(str, idx1, idx2)
+   - substringAfter(str1, str2)
+   - substringBefore(str1, str2)
+   - trim(str)
+   - replace(str, src, dest)
+   - indexOf(str1, str2)
+   - startsWith
+   - endsWith(str1, str2)
+   - contains(str1, str2)
+   - containsIgnoreCase(str1, str2)
+   - split(str1, str2)
+   - join(array, str2)
+   - escapeXml(str)
 
 
 
