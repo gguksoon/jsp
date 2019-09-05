@@ -1702,14 +1702,69 @@ from dual;
    - join(array, str2)
    - escapeXml(str)
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+ㅁ 웹기반 어플리케이션 - 필터(Filter)
+   - 기존방식
+   클라 -> 요청 -> 서블릿 -> 보드서블릿 -> 로그인 여부 체크 -> 로그인 된 경우 리스트 조회 -> 응답
+			  -> 회원서블릿 -> 로그인 여부 체크 -> 로그인 된 경우 리스트 조회 -> 응답
 
+   - 필터사용
+   클라 -> 요청 -> 서블릿 -> 필터(로긴체크) ->  보드서블릿 -> 로그인 된 경우 리스트 조회 -> 응답
+			  -> 필터(로긴체크) ->  보드서블릿 -> 로그인 된 경우 리스트 조회 -> 응답 
 
+   - Filter전처리, Filter후처리 ==> 후처리는 거의 사용하지 않는다.
 
+   - Filter 구현방법
+	> filter 구현 방법 ==> 서블릿 작성, 등록방법과 유사
+	  1. javax.servlet.Filter인터페이스를 구현한다.
+	  2. url-mapping: 모든 요청에 대해 filter 일율적으로 적용되지 않음.
+			  서블릿과 마찬가지로 개발자가 설정한 url pattern에 매칭되는 경우만 filter가 적용
 
+	> 구현된 클래스 ==> kr.or.ddit.filter.RequestCountFilter implements Filter
+	public class RequestCountFilter implements Filter {
+		init()
+		doFilter()
+		destroy()
+	}
 
+	> web.xml
+	<filter>
+		<filter-name>requestCountFilter</filter-name> <!-- 임의의 이름 -->
+		<filter-class>kr.or.ddit.filter.RequestCountFilter</filter-class> <!-- 패키지 + 클래스명 -->	
+	</filter>
+  
+	<filter-mapping>
+		<filter-name>requestCountFilter</filter-name>
+		<url-pattern>/*</url-pattern>  	
+	</filter-mapping>
 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+ㅁ 최종 프로젝트
+ - 여행관련 주제 안됨
+ - 단순 커뮤니티 안됨(게시판성 단순 CRUD 위주의 프로그램: 요리 레시피 소개, 웹툰 사이트)
+ - 가급적 비지니스와 관련된 것(회사에서 사용할 만한 것)
+   > 그룹웨어
+   > PMS project management system
+   > 이슈관리
+   > 협업툴
+
+ㅁ 예시
+ - 상권분석
+ - 학사관리
+ - 웹erd
+ - 웹sql
+ - 기타휴게실프로젝트..
+
+ㅁ 참고사항
+ - 코드성 엔터티를 제외, 핵심 엔터티 25~30개
+ - 엔터티가 적다면 외부 라이브러리 사용이 아닌 직접 개발해야하는 사항이 많은것
+ - 외부 라이브러리 조사 / 테스트 과정을 통해 프로젝트에서 사용 가능한 여부를 사전에 파악할 것
+ - 인공지능 API활용하여 간단한 기능이라도 구현 권장
+
+ - ibm 왓슨 예제
+ - fullcalendar
 
 
 
