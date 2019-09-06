@@ -8,48 +8,52 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-public class DefaultCompanyCodeWrapper extends HttpServletRequestWrapper {
+public class DefaultCompanyCodeWrapper extends HttpServletRequestWrapper{
 
 	private Map<String, String[]> requestMap;
-	
-	// 기존의 request를 받아 그 request를 이용
+
 	public DefaultCompanyCodeWrapper(HttpServletRequest request) {
 		super(request);
-		
+
 		requestMap = new HashMap<String, String[]>(request.getParameterMap());
+
+
 		String unt_cd = request.getParameter("unt_cd");
-		
-		// unt_cd 파라미터가 null이거나 ""이면 기본값 DDIT로 파라미터 값이 설정되게끔 수정
-		unt_cd = ( unt_cd == null || unt_cd.equals("") ) ? "DDIT" : unt_cd;
+		//unt_cd 파라미터가 null이거나 "" 이면 기본값 DDTI로 파라미터 값이 설정되게끔 수정
+
+		if(unt_cd == null || unt_cd.equals("")) {
+			unt_cd = "DDIT";
+		}
+
 		requestMap.put("unt_cd", new String[] {unt_cd});
 	}
-	
-	// parameter 관련된 메소드(4가지)를 재정의
-	// String getParameter(String parameter)
-	// String[] getParameterValues(String parameter)
-	// Enumeration<String> getParameterNames()
-	// Map<String, String[]> getParameterMap()
+
+	//prameter 관련된 메소드를 재정의
+	// String  getParameter(String parameter)
+	// String[]  getParameterValues(String parameter)
+	// Enumeration<String> getPrameterNames()
+	// Map<String, String[]> getPrameterMap()
 
 	@Override
 	public String getParameter(String name) {
 		String[] values = requestMap.get(name);
-		
+
 		if(values == null)
 			return null;
-		else 
+		else
 			return values.length > 0 ? values[0] : null;
 	}
-	
+
 	@Override
 	public String[] getParameterValues(String name) {
 		return requestMap.get(name);
 	}
-	
+
 	@Override
 	public Enumeration<String> getParameterNames() {
 		return Collections.enumeration(requestMap.keySet());
 	}
-	
+
 	@Override
 	public Map<String, String[]> getParameterMap() {
 		return requestMap;
