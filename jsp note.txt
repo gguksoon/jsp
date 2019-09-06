@@ -1711,7 +1711,7 @@ from dual;
 
    - 필터사용
    클라 -> 요청 -> 서블릿 -> 필터(로긴체크) ->  보드서블릿 -> 로그인 된 경우 리스트 조회 -> 응답
-			  -> 필터(로긴체크) ->  보드서블릿 -> 로그인 된 경우 리스트 조회 -> 응답 
+			  -> 필터(로긴체크) ->  회원서블릿 -> 로그인 된 경우 리스트 조회 -> 응답 
 
    - Filter전처리, Filter후처리 ==> 후처리는 거의 사용하지 않는다.
 
@@ -1825,7 +1825,7 @@ from dual;
 
 
 
-======================================[0905]======================================
+======================================[0906]======================================
 
 ㅁ 로그아웃 구현
    - session.invalidate(); 을 사용하여 세션에 저장된 모든 속성을 제거
@@ -1839,7 +1839,8 @@ from dual;
    2. 테스트 코드 존재시 테스트 코드 실행 -> 코드 문제 여부 검사
    3. 패키징(jar, war): mvn clean package -Dmaven.test.skip=true
 
-   4. 톰캣이 기동중이면 shutdown(/tomcat/bin/shutdown.bat)
+   4-1. 톰캣이 기동중이면 shutdown(/tomcat/bin/shutdown.bat)
+   4-2. tmocat/webapps/jsp 폴더와 tomcat/webapps/jsp.war 삭제(기존에 받은 것)
 
    5. 톰캣의 webapps 폴더 밑에 3번에서 준비한 war파일이나 war파일을 압축 해제
 	==> 1. ~ 3. 까지 단계를 통해 나온 war파일 혹은 디렉토리를 wepapps로 복사
@@ -1896,15 +1897,26 @@ from dual;
 
 ㅁ git에서 받아 소스코드 저장 ==> /d/deploy (mkdir deploy)
    - git clone https://github.com/gguksoon/jsp [폴더명] <-- 폴더명은 생략가능
+   
+   - 소스코드를 받고 jsp폴더로 진입하여 mvn clean package -Dmaven.test.skip=true
 
+   - jsp폴더에서 git pull을 사용하면 동기화됨
 
+   - shutdown==> /e/B_Util/5.ApacheTomcat/apache-tomcat-7.0.73/bin/shutdown.sh
 
+   - 기존 /webapps/jsp 삭제
+     rm -rf /e/B_Util/5.ApacheTomcat/apache-tomcat-7.0.73/webapps/jsp
+     rm -rf /e/B_Util/5.ApacheTomcat/apache-tomcat-7.0.73/webapps/jsp.war
 
+   - tomcat/webapps로 복사
+     cp /e/deploy/jsp/target/jsp-0.0.1-SNAPSHOT.war /e/B_Util/5.ApacheTomcat/apache-tomcat-7.0.73/webapps/jsp.war
 
+   - 서버실행
+     /e/B_Util/5.ApacheTomcat/apache-tomcat-7.0.73/bin/startup.sh
 
+   - http://localhost:8081/jsp/login
 
-
-
+   *** 위 과정을 쉘스크립트로 생성 (e/deploy/jspDeploy.sh)
 
 
 

@@ -56,19 +56,21 @@ public class SessionListener implements HttpSessionAttributeListener{
 		
 		logger.debug("attributeReplaced, {}", event.getName());
 		
-		logger.debug("attributeReplaced, {} ", ((User)event.getValue()).getUserId());
+		String attrName = event.getName();
+		if(attrName.equals("S_USERVO")) {
+			//새롭게 변경된 사용자 세션 정보
+			HttpSession session = (HttpSession)event.getSource();
+			User user = (User)session.getAttribute("S_USERVO");
+			
+			//기존 사용자 세션 정보
+			User oldUser = (User)event.getValue();
+			
+			ServletContext sc = event.getSession().getServletContext();
+			List<User> s_uservo_list = (List<User>)sc.getAttribute("S_USERVO_LIST");	
+			
+			s_uservo_list.remove(oldUser);		//기존 사용자 제거
+			s_uservo_list.add(user);			//신규 사용자 등록
 		
-		//새롭게 변경된 사용자 세션 정보
-		HttpSession session = (HttpSession)event.getSource();
-		User user = (User)session.getAttribute("S_USERVO");
-		
-		//기존 사용자 세션 정보
-		User oldUser = (User)event.getValue();
-		
-		ServletContext sc = event.getSession().getServletContext();
-		List<User> s_uservo_list = (List<User>)sc.getAttribute("S_USERVO_LIST");	
-		
-		s_uservo_list.remove(oldUser);		//기존 사용자 제거
-		s_uservo_list.add(user);			//신규 사용자 등록
+		}
 	}
 }
