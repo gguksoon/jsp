@@ -46,7 +46,7 @@ public class LoginCheckFilter implements Filter {
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			
 //			httpResponse.sendRedirect("/login");
-			httpRequest.getRequestDispatcher("/login.jsp").forward(httpRequest, httpResponse);
+			httpRequest.getRequestDispatcher(httpRequest.getContextPath() + "/login.jsp").forward(httpRequest, httpResponse);
 		}
 		
 		// 로그인 한 상황

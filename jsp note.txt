@@ -1761,6 +1761,41 @@ from dual;
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+ㅁ Listener
+ - jQuery: $(".userListTr").on("click", function() { });
+	   ==> userListTr클래스를 갖는 엘리먼트가 클릭되었을 때 function 수행
+
+ - J2EE: 아래 두가지 경우 이벤트 감지 가능
+   1. scope객체가 생성될 때(request, session, application)
+   2. 속성이 추가될 때(request.setAttribute(), session.setAttribute(),
+	  	      application.setAttribute())
+		==> jsp에선 별로 사용하진 않지만 추후 배울 spring에서 사용할 예정
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ㅁ Listener - 1. scope객체가 생성될 때
+  - class에 HttpSessionAttributeListener 구현
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+ㅁ Listener - 2. 속성이 추가될 때
+ - class에 ServletContextListener 구현
+
+ - web.xml에 설정
+	<listener>
+		<listener-class>kr.or.ddit.listener.ContextPathInitListener</listener-class>
+	</listener>
+
+ - 기존에 ${cp }를 사용할 때 cp에 contextPath를 담게 하던 부분이
+   ContextPathInitServlet.java였는데 해당 부분의 어노테이션을 주석(비활성화)하고,
+   ContextPathInitListener.java를 구현하여 Listener로 대체했음.
+   또한, 해당 Listner를 web.xml에 설정했음.
+
+ - 서버가 실행될 때 최초 한번만 실행되는 것 같음..
+   ==> 여러 사람이 한번만 사용할 때 이용하면 좋을 것 같다.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 ㅁ 최종 프로젝트
  - 여행관련 주제 안됨
  - 단순 커뮤니티 안됨(게시판성 단순 CRUD 위주의 프로그램: 요리 레시피 소개, 웹툰 사이트)
@@ -1785,7 +1820,6 @@ from dual;
 
  - ibm 왓슨 예제
  - fullcalendar
-
 
 
 
